@@ -1,0 +1,702 @@
+ <!DOCTYPE html>
+ <html lang="en"> 
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+  body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9fafb;
+  color: #111827;
+  /* Add background image */
+  background-image: url('https://images.unsplash.com/photo-1532938314562-3a574ae19a36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWx0aHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  }
+
+  header {
+  background-color: #111827;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  }
+
+  /* Animated background for header */
+  header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
+  z-index: 0;
+  animation: animatedBackground 5s linear infinite;
+  }
+ 
+  @keyframes animatedBackground {
+  0% {
+  transform: translateX(0);
+  }
+  100% {
+  transform: translateX(-50%);
+  }
+  }
+
+  .container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  } 
+
+  h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  }
+
+  h2,
+  h3 {
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+  }
+
+  .btn-logout,
+  .btn-send,
+  .btn-schedule {
+  background: #ef4444;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  position: relative;
+  overflow: hidden;
+  }
+
+  .btn-logout:hover,
+  .btn-send:hover,
+  .btn-schedule:hover {
+  background: #b91c1c;
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+
+  .btn-logout::before,
+  .btn-send::before,
+  .btn-schedule::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.4s;
+  z-index: 1;
+  }
+
+  .btn-logout:hover::before,
+  .btn-send:hover::before,
+  .btn-schedule:hover::before {
+  left: 100%;
+  }
+
+  .section {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fefefe;
+  transition: box-shadow 0.3s;
+  position: relative;
+  z-index: 1;
+  }
+
+  .section:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .message-input,
+  .appointment-input,
+  .metric-input {
+  width: calc(100% - 120px);
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: border-color 0.3s;
+  }
+
+  .message-input:focus,
+  .appointment-input:focus,
+  .metric-input:focus {
+  border-color: #4caf50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  }
+  ul {
+  list-style-type: none;
+  padding: 0;
+  }
+  
+  li {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  }
+  
+  li:hover {
+  background-color: #e0e0e0;
+  }
+
+  /* Health animation */
+  .health-animation {
+  margin-top: 1rem;
+  height: 50px;
+  width: 100%;
+  background-color: #4caf50;
+  border-radius: 5px;
+  animation: healthAnimation 2s infinite alternate;
+  box-shadow: 0 2px 5px rgba(76, 175, 80, 0.6);
+  } 
+
+  @keyframes healthAnimation {
+  0% {
+  width: 10%;
+  }
+  100% {
+  width: 100%;
+  }
+  }
+
+  /* Notification bell icon */
+  .notification {
+  position: relative;
+  display: inline-block;
+  }
+
+  .notification .bell {
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  }
+
+  .notification .badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 5px 8px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  }
+
+  /* Weather section */
+  .weather {
+  text-align: center;
+  margin-top: 1rem;
+  }
+
+  .weather-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  }
+
+  /* News Ticker*/
+  .news-ticker {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  }
+
+  .news-ticker-content {
+  white-space: nowrap;
+  animation: ticker 15s linear infinite;
+  }
+
+  @keyframes ticker {
+  0% {
+  transform: translateX(100%);
+  }
+  100% {
+  transform: translateX(-100%);
+  }
+  }
+
+  /*Digital Clock*/
+  .clock {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+  color: #111827;
+  }
+  </style>
+ </head>
+
+ <body>
+
+  <header>
+  <h1>Patient Dashboard</h1>
+  </header>
+
+  <div class="container">
+  <h2>Welcome, <span id="patientName">Patient Name</span>!</h2>
+  <p>This is your dashboard where you can manage your health information, communicate with your doctor, and schedule
+  appointments.</p>
+
+  <div class="clock">
+  <!-- Digital clock will be displayed here -->
+  </div>
+
+  <div class="section">
+  <h3>Your Personal Information</h3>
+  <p><strong>Name:</strong> <span id="patientFullName">John Doe</span></p>
+  <p><strong>Age:</strong> <span id="patientAge">30</span></p>
+  <p><strong>Contact:</strong> <span id="patientContact">john.doe@example.com</span></p>
+  </div>
+
+  <div class="section">
+  <h3>Your Medical Reports</h3>
+  <ul id="reportList">
+  </ul>
+  <div class="loader" id="reportLoader"></div>
+  </div>
+
+  <div class="section">
+  <h3>Your Appointments</h3>
+  <ul id="appointmentList">
+  </ul>
+  <div>
+  <h4>Schedule a New Appointment</h4>
+  <input type="text" class="appointment-input" id="appointmentInput"
+  placeholder="Enter appointment details...">
+  <button class="btn-schedule" onclick="scheduleAppointment()">Schedule</button>
+  </div>
+  </div>
+
+  <div class="section">
+  <h3>Contact Your Doctor</h3>
+  <p><strong>Doctor's Name:</strong> <span id="doctorName">Dr. Smith</span></p>
+  <p><strong>Contact:</strong> <span id="doctorContact">dr.smith@example.com</span></p>
+  </div>
+
+  <div class="section">
+  <h3>Message Your Doctor</h3>
+  <input type="text" class="message-input" id="messageInput" placeholder="Type your message here...">
+  <button class="btn-send" onclick="sendMessage()">Send</button>
+  </div>
+
+  <div class="section">
+  <h3>Your Health Status</h3>
+  <div class="health-animation" id="healthAnimation"></div>
+  <p>Your health status is being monitored...</p>
+  </div>
+
+  <div class="section">
+  <h3>Health Metrics Tracking</h3>
+  <input type="text" class="metric-input" id="metricInput" placeholder="Enter health metric (e.g., weight)">
+  <button class="btn-send" onclick="trackHealthMetric()">Track</button>
+  <ul id="healthMetricsList">
+  </ul>
+  </div>
+
+  <div class="section">
+  <h3>Medication Reminders</h3>
+  <input type="text" class="metric-input" id="medicationInput" placeholder="Enter medication details">
+  <button class="btn-send" onclick="setMedicationReminder()">Set Reminder</button>
+  <ul id="medicationList">
+  </ul>
+  </div>
+
+  <div class="section">
+  <h3>Emergency Contact Information</h3>
+  <input type="text" class="metric-input" id="emergencyContactInput" placeholder="Enter emergency contact">
+  <button class="btn-send" onclick="addEmergencyContact()">Add Contact</button>
+  <ul id="emergencyContactList">
+  </ul>
+  </div>
+
+  <div class="section">
+  <h3>Personalized Health Goals</h3>
+  <input type="text" class="metric-input" id="healthGoalInput" placeholder="Enter your health goal">
+  <button class="btn-send" onclick="setHealthGoal()">Set Goal</button>
+  <ul id="healthGoalsList">
+  </ul>
+  </div>
+
+  <div class="section">
+  <h3>Insurance Information Management</h3>
+  <input type="text" class="metric-input" id="insuranceInput" placeholder="Enter insurance details">
+  <button class="btn-send" onclick="addInsuranceInfo()">Add Insurance</button>
+  <ul id="insuranceList">
+  </ul>
+  </div>
+
+  <div class="section">
+  <h3>Notifications</h3>
+  <ul id="notificationList">
+  </ul>
+  </div>
+
+  <!-- Weather Section -->
+  <div class="section weather">
+  <h3>Today's Weather</h3>
+  <div class="weather-icon">
+  <i class="fas fa-sun"></i>
+  </div>
+  <p>Sunny, 28°C</p>
+  </div>
+
+  <!-- News Ticker -->
+  <div class="news-ticker">
+  <div class="news-ticker-content">
+  Breaking News: New study shows regular exercise improves mental health. - Stay Healthy!
+  </div>
+  </div>
+ 
+  <button class="btn-logout" onclick="logout()">Logout</button>
+  </div>
+ 
+  <script>
+  // Sample patient data
+  const patientData = {
+  name: "John Doe",
+  age: 30,
+  contact: "john.doe@example.com",
+  doctor: {
+  name: "Dr. Smith",
+  contact: "dr.smith@example.com"
+  }
+  };
+ 
+  // Sample medical reports data
+  const medicalReports = [
+  {
+  date: '2025-06-01',
+  report: 'Blood Test Results: Normal',
+  details: 'Detailed report available <a href="#">here</a>'
+  },
+  {
+  date: '2025-06-05',
+  report: 'X-Ray Results: No Issues',
+  details: 'Detailed report available <a href="#">here</a>'
+  }
+  ];
+ 
+  // Sample appointment history
+  const appointments = [{
+  date: '2025-06-10',
+  details: 'Check-up with Dr. Smith'
+  },
+  {
+  date: '2025-06-15',
+  details: 'Follow-up on Blood Test'
+  }
+  ];
+
+  // Sample notifications
+  const notifications = [{
+  message: 'Your appointment with Dr. Smith is confirmed for June 10.'
+  },
+  {
+  message: 'New medical report available for review.'
+  }
+  ];
+ 
+  // Health metrics, medication reminders, emergency contacts, health goals, and insurance information
+  const healthMetrics = [];
+  const medicationReminders = [];
+  const emergencyContacts = [];
+  const healthGoals = [];
+  const insuranceInfo = [];
+ 
+  // Function to load patient data
+  function loadPatientData() {
+  document.getElementById('patientName').textContent = patientData.name;
+  document.getElementById('patientFullName').textContent = patientData.name;
+  document.getElementById('patientAge').textContent = patientData.age;
+  document.getElementById('patientContact').textContent = patientData.contact;
+  document.getElementById('doctorName').textContent = patientData.doctor.name;
+  document.getElementById('doctorContact').textContent = patientData.doctor.contact;
+  }
+
+  // Function to load medical reports with loader
+  function loadReports() {
+  const reportList = document.getElementById('reportList');
+  const reportLoader = document.getElementById('reportLoader'); 
+
+  // Show loader
+  reportLoader.style.display = 'block';
+  reportList.style.display = 'none';
+
+  // Simulate loading delay (replace with actual API call)
+  setTimeout(() => {
+  // Clear existing
+    reportList.innerHTML = ''; 
+
+  medicalReports.forEach((report, index) => {
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `${report.date}: ${report.report} - ${report.details}`;
+  listItem.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+  reportList.appendChild(listItem);
+  });
+ 
+  // Hide loader and show list
+  reportLoader.style.display = 'none';
+  reportList.style.display = 'block';
+  }, 1500); // Simulate 1.5 seconds loading
+  }
+ 
+  // Function to load appointments
+  function loadAppointments() {
+  const appointmentList = document.getElementById('appointmentList');
+  appointmentList.innerHTML = ''; // Clear existing list
+  appointments.forEach((appointment, index) => {
+  const listItem = document.createElement('li');
+  listItem.textContent = `${appointment.date}: ${appointment.details}`;
+  listItem.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+  appointmentList.appendChild(listItem);
+  });
+  } 
+
+  // Function to load notifications
+  function loadNotifications() {
+  const notificationList = document.getElementById('notificationList');
+  notificationList.innerHTML = ''; // Clear existing list
+  notifications.forEach((notification, index) => {
+  const listItem = document.createElement('li');
+  listItem.textContent = notification.message;
+  listItem.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+  notificationList.appendChild(listItem);
+  });
+  }
+ 
+  // Function to send a message to the doctor
+  function sendMessage() {
+  const messageInput = document.getElementById('messageInput');
+  const message = messageInput.value.trim();
+  if (message) {
+  alert(`Message sent to your doctor: "${message}"`);
+  messageInput.value = ''; // Clear input after sending
+  } else {
+  alert('Please enter a message before sending.');
+  }
+  }
+ 
+  // Function to schedule a new appointment
+  function scheduleAppointment() {
+  const appointmentInput = document.getElementById('appointmentInput');
+  const details = appointmentInput.value.trim();
+  if (details) {
+  appointments.push({
+  date: new Date().toLocaleDateString(),
+  details
+  });
+  alert(`Appointment scheduled: "${details}"`);
+  appointmentInput.value = ''; // Clear input after scheduling
+  loadAppointments(); // Refresh the appointment list
+  } else {
+  alert('Please enter appointment details before scheduling.');
+  }
+  }
+
+  // Function to track health metrics
+  function trackHealthMetric() {
+  const metricInput = document.getElementById('metricInput');
+  const metric = metricInput.value.trim();
+  if (metric) {
+  healthMetrics.push(metric);
+  alert(`Health metric tracked: "${metric}"`);
+  metricInput.value = ''; // Clear input after tracking
+  loadHealthMetrics(); // Refresh the health metrics list
+  } else {
+  alert('Please enter a health metric before tracking.');
+  }
+  }
+
+  // Function to load health metrics
+  function loadHealthMetrics() {
+  const healthMetricsList = document.getElementById('healthMetricsList');
+  healthMetricsList.innerHTML = ''; // Clear existing list
+  healthMetrics.forEach((metric, index) => {
+  const listItem = document.createElement('li');
+  listItem.textContent = metric;
+  listItem.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+  healthMetricsList.appendChild(listItem);
+  });
+  }
+
+  // Function to set medication reminders
+  function setMedicationReminder() {
+  const medicationInput = document.getElementById('medicationInput');
+  const medication = medicationInput.value.trim();
+  if (medication) {
+  medicationReminders.push(medication);
+  alert(`Medication reminder set: "${medication}"`);
+  medicationInput.value = ''; // Clear input after setting
+  loadMedicationReminders(); // Refresh the medication list
+  } else {
+  alert('Please enter medication details before setting a reminder.');
+  }
+  }
+
+  // Function to load medication reminders
+  function loadMedicationReminders() {
+  const medicationList = document.getElementById('medicationList');
+  medicationList.innerHTML = ''; // Clear existing list
+  medicationReminders.forEach((medication, index) => {
+  const listItem = document.createElement('li');
+  listItem.textContent = medication;
+  listItem.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+  medicationList.appendChild(listItem);
+  });
+  }
+
+  // Function to add emergency contact
+  function addEmergencyContact() {
+  const emergencyContactInput = document.getElementById('emergencyContactInput');
+  const contact = emergencyContactInput.value.trim();
+  if (contact) {
+  emergencyContacts.push(contact);
+  alert(`Emergency contact added: "${contact}"`);
+  emergencyContactInput.value = ''; // Clear input after adding
+  loadEmergencyContacts(); // Refresh the emergency contacts list
+  } else {
+  alert('Please enter an emergency contact before adding.');
+  }
+  } 
+
+  // Function to load emergency contacts
+  function loadEmergencyContacts() {
+  const emergencyContactList = document.getElementById('emergencyContactList');
+  emergencyContactList.innerHTML = ''; // Clear existing list
+  emergencyContacts.forEach((contact, index) => {
+  const listItem = document.createElement('li');
+  listItem.textContent = contact;
+  listItem.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+  emergencyContactList.appendChild(listItem);
+  });
+  }
+ 
+  // Function to set health goal
+  function setHealthGoal() {
+  const healthGoalInput = document.getElementById('healthGoalInput');
+  const goal = healthGoalInput.value.trim();
+  if (goal) {
+  healthGoals.push(goal);
+  alert(`Health goal set: "${goal}"`);
+  healthGoalInput.value = ''; // Clear input after setting
+  loadHealthGoals(); // Refresh the health goals list
+  } else {
+  alert('Please enter a health goal before setting.');
+  }
+  }
+ 
+  // Function to load health goals
+  function loadHealthGoals() {
+  const healthGoalsList = document.getElementById('healthGoalsList');
+  healthGoalsList.innerHTML = ''; // Clear existing list
+  healthGoals.forEach((goal, index) => {
+  const listItem = document.createElement('li');
+  listItem.textContent = goal;
+  listItem.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+  healthGoalsList.appendChild(listItem);
+  });
+  } 
+
+  // Function to add insurance information
+  function addInsuranceInfo() {
+  const insuranceInput = document.getElementById('insuranceInput');
+  const insurance = insuranceInput.value.trim();
+  if (insurance) {
+  insuranceInfo.push(insurance);
+  alert(`Insurance information added: "${insurance}"`);
+  insuranceInput.value = ''; // Clear input after adding
+  loadInsuranceInfo(); // Refresh the insurance list
+  } else {
+  alert('Please enter insurance details before adding.');
+  }
+  }
+ 
+  // Function to load insurance information
+  function loadInsuranceInfo() {
+  const insuranceList = document.getElementById('insuranceList');
+  insuranceList.innerHTML = ''; // Clear existing list
+  insuranceInfo.forEach((info, index) => {
+  const listItem = document.createElement('li');
+  listItem.textContent = info;
+  listItem.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+  insuranceList.appendChild(listItem);
+  });
+  }
+
+  // Function to update the digital clock
+  function updateClock() {
+  const clockElement = document.querySelector('.clock');
+  const now = new Date(); 
+
+  // Format the date
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const day = String(now.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
+
+  // Format the time in 12-hour format with AM/PM
+  let hours = now.getHours();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
+  clockElement.textContent = `Date: ${formattedDate} Time: ${formattedTime}`;
+  }
+
+  // Function to logout
+  function logout() {
+  sessionStorage.removeItem('aimmsCurrentUser ');
+  window.location.href = 'index.html'; // Change to your login page URL
+  }
+
+  // Load all data on page load
+  window.onload = function () {
+  loadPatientData();
+  loadReports();
+  loadAppointments();
+  loadNotifications();
+  loadHealthMetrics();
+  loadMedicationReminders();
+  loadEmergencyContacts();
+  loadHealthGoals();
+  loadInsuranceInfo();
+
+  // Update the clock every second
+  setInterval(updateClock, 1000);
+  };
+  </script>
+ </body>
+</html>

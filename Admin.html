@@ -1,0 +1,687 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+  body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9fafb;
+  color: #111827;
+  }
+ 
+
+  header {
+  background-color: #111827;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInDown 0.5s ease-out;
+  }
+ 
+
+  /* Animated background for header */
+  header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
+  z-index: 0;
+  animation: animatedBackground 5s linear infinite, fadeIn 0.5s ease-out;
+  }
+ 
+
+  @keyframes animatedBackground {
+  0% {
+  transform: translateX(0);
+  }
+ 
+
+  100% {
+  transform: translateX(-50%);
+  }
+  }
+ 
+
+  @keyframes fadeInDown {
+  from {
+  opacity: 0;
+  transform: translateY(-20px);
+  }
+ 
+
+  to {
+  opacity: 1;
+  transform: translateY(0);
+  }
+  }
+ 
+
+  @keyframes fadeIn {
+  from {
+  opacity: 0;
+  }
+ 
+
+  to {
+  opacity: 1;
+  }
+  }
+ 
+
+  .container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s ease-out;
+  }
+ 
+
+  h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  }
+ 
+
+  h2,
+  h3 {
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+  }
+ 
+
+  table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  }
+ 
+
+  th,
+  td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  }
+ 
+
+  th {
+  background-color: #f2f2f2;
+  }
+ 
+
+  .btn-approve,
+  .btn-reject,
+  .btn-logout,
+  .btn-edit {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  animation: pulse 2s infinite alternate;
+  }
+ 
+
+  @keyframes pulse {
+  0% {
+  transform: scale(1);
+  }
+ 
+
+  100% {
+  transform: scale(1.05);
+  }
+  }
+ 
+
+  .btn-approve {
+  background: #4caf50;
+  color: white;
+  }
+ 
+
+  .btn-approve:hover {
+  background: #45a049;
+  transform: scale(1.05);
+  }
+ 
+
+  .btn-reject {
+  background: #f44336;
+  color: white;
+  }
+ 
+
+  .btn-reject:hover {
+  background: #e53935;
+  transform: scale(1.05);
+  }
+ 
+
+  .btn-logout {
+  background: #ef4444;
+  color: white;
+  }
+ 
+
+  .btn-logout:hover {
+  background: #b91c1c;
+  transform: scale(1.05);
+  }
+ 
+
+  .search-container {
+  margin-bottom: 1rem;
+  animation: slideInLeft 0.5s ease-out;
+  }
+ 
+
+  @keyframes slideInLeft {
+  from {
+  transform: translateX(-100%);
+  opacity: 0;
+  }
+ 
+
+  to {
+  transform: translateX(0);
+  opacity: 1;
+  }
+  }
+ 
+
+  .search-input {
+  padding: 0.5rem;
+  width: calc(100% - 100px);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+  }
+ 
+
+  /* Modal styles */
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease-out;
+  }
+ 
+
+  .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 5px;
+  animation: zoomIn 0.3s ease-out;
+  }
+ 
+
+  @keyframes zoomIn {
+  from {
+  transform: scale(0);
+  }
+ 
+
+  to {
+  transform: scale(1);
+  }
+  }
+ 
+
+  .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  }
+ 
+
+  .close:hover,
+  .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  }
+ 
+
+  .btn-edit {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  }
+ 
+
+  .btn-edit:hover {
+  background-color: #0056b3;
+  }
+ 
+
+  .user-management-section {
+  margin-top: 20px;
+  animation: slideInRight 0.5s ease-out;
+  }
+ 
+
+  @keyframes slideInRight {
+  from {
+  transform: translateX(100%);
+  opacity: 0;
+  }
+ 
+
+  to {
+  transform: translateX(0);
+  opacity: 1;
+  }
+  }
+ 
+
+  .add-user-form {
+  margin-bottom: 20px;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fefefe;
+  }
+ 
+
+  .add-user-form input[type="text"],
+  .add-user-form input[type="email"],
+  .add-user-form input[type="password"],
+  .add-user-form select {
+  width: calc(100% - 20px);
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  }
+ 
+
+  .add-user-form button {
+  background: #28a745;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  }
+ 
+
+  .add-user-form button:hover {
+  background-color: #218838;
+  }
+ 
+
+  /* Table row animation */
+  #doctorTable tbody tr {
+  animation: fadeIn 0.7s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  }
+ 
+
+  @keyframes fadeIn {
+  to {
+  opacity: 1;
+  transform: translateY(0);
+  }
+  }
+ 
+
+  /* Apply animation to each row with a delay */
+  #doctorTable tbody tr:nth-child(1) {
+  animation-delay: 0.1s;
+  }
+ 
+
+  #doctorTable tbody tr:nth-child(2) {
+  animation-delay: 0.2s;
+  }
+ 
+
+  #doctorTable tbody tr:nth-child(3) {
+  animation-delay: 0.3s;
+  }
+ 
+
+  /* Add more rows as needed */
+  </style>
+ </head>
+ 
+
+ <body>
+ 
+
+  <header>
+  <h1>Admin Dashboard</h1>
+  </header>
+ 
+
+  <div class="container">
+  <h2>Pending Doctor Approvals</h2>
+ 
+
+  <div class="search-container">
+  <input type="text" class="search-input" id="searchInput" placeholder="Search by username..."
+  onkeyup="searchDoctors()">
+  </div>
+ 
+
+  <table id="doctorTable">
+  <thead>
+  <tr>
+  <th>Username</th>
+  <th>Approval Status</th>
+  <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Doctor rows will be populated here -->
+  </tbody>
+  </table>
+ 
+
+  <div class="user-management-section">
+  <h2>User Management</h2>
+ 
+
+  <div class="add-user-form">
+  <h3>Add New User</h3>
+  <input type="text" id="newUsername" placeholder="Username">
+  <input type="email" id="newEmail" placeholder="Email">
+  <input type="password" id="newPassword" placeholder="Password">
+  <select id="newRole">
+  <option value="patient">Patient</option>
+  <option value="doctor">Doctor</option>
+  <option value="admin">Admin</option>
+  </select>
+  <button onclick="addUser()">Add User</button>
+  </div>
+ 
+
+  <h2>All Users</h2>
+  <table id="allUsersTable">
+  <thead>
+  <tr>
+  <th>Username</th>
+  <th>Email</th>
+  <th>Role</th>
+  <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- All user rows will be populated here -->
+  </tbody>
+  </table>
+  </div>
+ 
+
+  <button class="btn-logout" onclick="logout()">Logout</button>
+  </div>
+ 
+
+  <!-- The Edit Modal -->
+  <div id="editModal" class="modal">
+  <div class="modal-content">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <h2>Edit User</h2>
+  <input type="hidden" id="editUsername">
+  <label for="editEmail">Email:</label>
+  <input type="email" id="editEmail"><br><br>
+  <label for="editRole">Role:</label>
+  <select id="editRole">
+  <option value="patient">Patient</option>
+  <option value="doctor">Doctor</option>
+  <option value="admin">Admin</option>
+  </select><br><br>
+  <button onclick="saveUser()">Save</button>
+  </div>
+  </div>
+ 
+
+  <script>
+  let allUsers = [];
+ 
+
+  function getUsers() {
+  const stored = localStorage.getItem('aimmsUsers');
+  return stored ? JSON.parse(stored) : [];
+  }
+ 
+
+  function setUsers(users) {
+  localStorage.setItem('aimmsUsers', JSON.stringify(users));
+  }
+ 
+
+  function approveDoctor(username) {
+  if (confirm(`Are you sure you want to approve doctor ${username}?`)) {
+  let users = getUsers();
+  const user = users.find(u => u.username === username && u.role === 'doctor');
+  if (user) {
+  user.approved = true;
+  setUsers(users);
+  alert(`Doctor ${username} has been approved.`);
+  loadDoctors();
+  loadAllUsers(); // Reload all users to reflect changes
+  } else {
+  alert(`No doctor found with username: ${username}`);
+  }
+  }
+  }
+ 
+
+  function rejectDoctor(username) {
+  if (confirm(`Are you sure you want to reject doctor ${username}?`)) {
+  let users = getUsers();
+  users = users.filter(u => !(u.username === username && u.role === 'doctor'));
+  setUsers(users);
+  alert(`Doctor ${username} has been rejected.`);
+  loadDoctors();
+  loadAllUsers(); // Reload all users to reflect changes
+  }
+  }
+ 
+
+  function loadDoctors() {
+  const doctors = getUsers().filter(u => u.role === 'doctor' && !u.approved);
+  const tableBody = document.getElementById('doctorTable').getElementsByTagName('tbody')[0];
+  tableBody.innerHTML = '';
+ 
+
+  doctors.forEach((doctor, index) => {
+  const row = tableBody.insertRow();
+  row.style.animationDelay = `${0.1 * (index + 1)}s`; // Stagger the animation
+  row.insertCell(0).textContent = doctor.username;
+  row.insertCell(1).textContent = doctor.approved ? 'Approved' : 'Pending';
+  const actionsCell = row.insertCell(2);
+  actionsCell.innerHTML = `
+  <button class="btn-approve" onclick="approveDoctor('${doctor.username}')">Approve</button>
+  <button class="btn-reject" onclick="rejectDoctor('${doctor.username}')">Reject</button>
+  `;
+  });
+  }
+ 
+
+  function searchDoctors() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const rows = document.querySelectorAll('#doctorTable tbody tr');
+  rows.forEach(row => {
+  const username = row.cells[0].textContent.toLowerCase();
+  row.style.display = username.includes(input) ? '' : 'none';
+  });
+  }
+ 
+
+  function logout() {
+  sessionStorage.removeItem('aimmsCurrentUser');
+  window.location.href = 'index.html';
+  }
+ 
+
+  // Function to add a new user
+  function addUser() {
+  const newUsername = document.getElementById('newUsername').value;
+  const newEmail = document.getElementById('newEmail').value;
+  const newPassword = document.getElementById('newPassword').value;
+  const newRole = document.getElementById('newRole').value;
+ 
+
+  if (newUsername && newEmail && newPassword && newRole) {
+  let users = getUsers();
+  // Check if the username already exists
+  if (users.find(user => user.username === newUsername)) {
+  alert('Username already exists. Please choose a different username.');
+  return;
+  }
+  const newUser = {
+  username: newUsername,
+  email: newEmail,
+  password: newPassword,
+  role: newRole,
+  approved: newRole !== 'doctor' // Auto-approve non-doctors
+  };
+  users.push(newUser);
+  setUsers(users);
+  alert(`User ${newUsername} added successfully.`);
+  loadAllUsers(); // Reload the user list
+ 
+
+  // Clear the input fields
+  document.getElementById('newUsername').value = '';
+  document.getElementById('newEmail').value = '';
+  document.getElementById('newPassword').value = '';
+  document.getElementById('newRole').value = 'patient';
+  } else {
+  alert('Please fill in all the fields.');
+  }
+  }
+ 
+
+  // Function to load all users
+  function loadAllUsers() {
+  allUsers = getUsers();
+  const tableBody = document.getElementById('allUsersTable').getElementsByTagName('tbody')[0];
+  tableBody.innerHTML = '';
+ 
+
+  allUsers.forEach(user => {
+  const row = tableBody.insertRow();
+  row.insertCell(0).textContent = user.username;
+  row.insertCell(1).textContent = user.email;
+  row.insertCell(2).textContent = user.role;
+  const actionsCell = row.insertCell(3);
+  actionsCell.innerHTML = `
+  <button class="btn-edit" onclick="openModal('${user.username}')">Edit</button>
+  <button class="btn-reject" onclick="deleteUser('${user.username}')">Delete</button>
+  `;
+  });
+  }
+ 
+
+  // Function to delete a user
+  function deleteUser(username) {
+  if (confirm(`Are you sure you want to delete user ${username}?`)) {
+  let users = getUsers();
+  users = users.filter(user => user.username !== username);
+  setUsers(users);
+  alert(`User ${username} has been deleted.`);
+  loadAllUsers(); // Reload the user list
+  loadDoctors(); // Reload the doctor list in case the deleted user was a pending doctor
+  }
+  }
+ 
+
+  // Function to open the edit modal
+  function openModal(username) {
+  const modal = document.getElementById('editModal');
+  modal.style.display = "block";
+ 
+
+  const user = allUsers.find(user => user.username === username);
+  document.getElementById('editUsername').value = user.username;
+  document.getElementById('editEmail').value = user.email;
+  document.getElementById('editRole').value = user.role;
+  }
+ 
+
+  // Function to close the edit modal
+  function closeModal() {
+  const modal = document.getElementById('editModal');
+  modal.style.display = "none";
+  }
+ 
+
+  // Function to save the edited user data
+  function saveUser() {
+  const username = document.getElementById('editUsername').value;
+  const newEmail = document.getElementById('editEmail').value;
+  const newRole = document.getElementById('editRole').value;
+ 
+
+  let users = getUsers();
+  const userIndex = users.findIndex(user => user.username === username);
+ 
+
+  if (userIndex !== -1) {
+  users[userIndex] = {
+  ...users[userIndex],
+  email: newEmail,
+  role: newRole
+  };
+  setUsers(users);
+  alert(`User ${username} updated successfully.`);
+  closeModal();
+  loadAllUsers(); // Reload the user list
+  loadDoctors(); // Reload the doctor list in case the role was changed
+  } else {
+  alert('User not found.');
+  }
+  }
+ 
+
+  window.onload = function () {
+  loadDoctors();
+  loadAllUsers();
+  };
+  </script>
+ </body>
+</html>
