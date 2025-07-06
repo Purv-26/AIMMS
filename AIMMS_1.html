@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title></title>
-  <!-- Google Fonts: Poppins -->
+  <title>AIMMS - AI Medical Multi-Solution Software</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -308,7 +307,6 @@
       font-size: 1.125rem;
     }
 
-    /* Dashboards */
     #dashboards {
       max-width: var(--container-max-width);
       margin-left: auto;
@@ -373,7 +371,6 @@
       margin: 0.5rem 0;
     }
 
-    /* About Creator */
     #about-creator {
       margin-top: 100px;
       max-width: 700px;
@@ -387,7 +384,6 @@
       color: var(--color-primary);
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 3rem 2rem;
@@ -397,7 +393,6 @@
       border-top: 1px solid #e5e7eb;
     }
 
-    /* Responsive */
     @media (max-width: 640px) {
       h1 {
         font-size: 2.5rem;
@@ -420,7 +415,6 @@
       }
     }
 
-    /* Accessibility focus styles */
     a:focus,
     button:focus,
     input:focus,
@@ -430,7 +424,6 @@
       outline-offset: 2px;
     }
 
-    /* Login/Signup Modal */
     .modal {
       position: fixed;
       inset: 0;
@@ -548,7 +541,6 @@
       outline: none;
     }
 
-    /* Dashboard header */
     .dashboard-header {
       display: flex;
       justify-content: space-between;
@@ -580,7 +572,6 @@
       transform: scale(1.05);
     }
 
-    /* AI Doctors Section */
     #ai-doctors {
       max-width: var(--container-max-width);
       margin-left: auto;
@@ -656,7 +647,6 @@
       flex-grow: 1;
     }
     
-    /* New AI Chat Box Section */
     #ai-chatbox {
       max-width: var(--container-max-width);
       background: var(--color-card-bg);
@@ -700,7 +690,6 @@
     #doctor-select option {
       font-weight: 400;
     }
-    /* Chat window */
     #chat-window {
       background: #fff;
       border: 1.5px solid #ddd;
@@ -716,7 +705,6 @@
       user-select: none;
       scroll-behavior: smooth;
     }
-    /* Chat messages */
     .chat-message {
       max-width: 80%;
       padding: 0.75rem 1.25rem;
@@ -747,7 +735,6 @@
       border-top-left-radius: 0;
       font-weight: 600;
     }
-    /* Input container */
     #chat-input-container {
       max-width: 700px;
       margin: 0 auto;
@@ -792,7 +779,6 @@
       outline: none;
       transform: scale(1.05);
     }
-    /* Scrollbar */
     #chat-window::-webkit-scrollbar {
       width: 10px;
     }
@@ -808,7 +794,6 @@
   </style>
 </head>
 <body>
-
   <header role="banner" id="headerMain">
     <nav aria-label="Primary navigation">
       <div class="logo" tabindex="0" aria-label="AIMMS Logo">AIMMS</div>
@@ -901,7 +886,6 @@
         </div>
       </section>
 
-      <!-- New AI Chat Box Section -->
       <section id="ai-chatbox" aria-label="Chat With AI Doctors">
         <h2>Chat With Our Expert AI Doctors</h2>
         <select id="doctor-select" aria-label="Select AI Doctor type for chat">
@@ -967,8 +951,6 @@
         </div>
       </section>
 
-      <!-- Rest of your original content unchanged -->
-
       <section id="scanner" aria-labelledby="scanner-title">
         <h2 class="section-title" id="scanner-title">Medical Report Scanner</h2>
         <div class="scanner" role="region" aria-live="polite" aria-atomic="true" tabindex="0">
@@ -977,8 +959,6 @@
           <div id="diagnosisResult" class="diagnosis-result" aria-live="polite" aria-atomic="true" role="status"></div>
         </div>
       </section>
-
-      <!-- ... rest of content unchanged ... -->
 
     </div>
 
@@ -997,8 +977,6 @@
       </section>
     </div>
 
-    <!-- ... rest of your original HTML unchanged ... -->
-
   </main>
 
   <footer role="contentinfo">
@@ -1007,7 +985,6 @@
     </div>
   </footer>
 
-<!-- Login/Signup Modal -->
 <div id="loginModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle" aria-describedby="loginModalDesc" tabindex="-1">
   <div class="modal-content">
     <button class="modal-close" id="modalCloseBtn" aria-label="Close login modal" type="button">&times;</button>
@@ -1028,7 +1005,6 @@
         <option value="admin">Admin</option>
       </select>
 
-      <!-- Doctor proof upload -->
       <div id="doctorProofContainer" style="display: none;">
         <label for="doctorProof">Upload Doctor Proof</label>
         <input type="file" id="doctorProof" name="proof" accept=".jpg,.jpeg,.png,.pdf" />
@@ -1044,7 +1020,6 @@
 </div>
 
 <script>
-  // Elements
   const loginModal = document.getElementById('loginModal');
   const btnLogin = document.getElementById('btnLogin');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
@@ -1397,4 +1372,3 @@
 
 </body>
 </html>
-
