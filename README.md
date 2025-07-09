@@ -95,29 +95,6 @@ This is the "patient's personal space" where patients can:
 - **Notification Bell**: Get alerts about appointments or messages
 - **Health Animation**: Visual health status indicator
 
----
-
-## 🎨 **Design Features** (Common across all pages)
-
-### Visual Elements:
-1. **Animated Headers**: Moving background effects
-2. **Hover Effects**: Buttons that respond when you hover over them
-3. **Smooth Transitions**: Professional animations
-4. **Medical Theme**: Health-related background images
-5. **Responsive Design**: Works on phones, tablets, and computers
-
-### Color Scheme:
-- **Primary**: Dark gray (#111827) - Professional look
-- **Secondary**: Green (#4CAF50) - Health/medical theme
-- **Accent**: Red (#ef4444) - For logout/delete actions
-- **Background**: Light gray (#f9fafb) - Easy on the eyes
-
-### Typography:
-- **Font**: Poppins - Modern, readable font
-- **Sizes**: Different sizes for headings and text
-- **Weights**: Bold for important information
-
----
 
 ## 🔧 **Technical Features**
 
@@ -145,14 +122,3 @@ This is the "patient's personal space" where patients can:
 2. **Choose your role** - Admin, Doctor, or Patient
 3. **Navigate to your dashboard** - Each role has specific features
 4. **Use the features** - Each dashboard has different tools and functions
-
----
-
-## 📱 **Responsive Design**
-All pages work on:
-- Desktop computers
-- Tablets
-- Mobile phones
-- Different screen sizes
-
-The design automatically adjusts to fit the screen size being used. 
