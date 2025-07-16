@@ -5,6 +5,7 @@
   "main": "AIMMS.html",
   "scripts": {
     "start": "echo 'No build step defined.'"
+    "build": "your build command here"
   },
   "author": "",
   "license": "MIT"
