@@ -1,0 +1,11 @@
+{
+  "name": "aimms-1",
+  "version": "1.0.0",
+  "description": "AIMMS-1 project for Netlify deployment.",
+  "main": "AIMMS.html",
+  "scripts": {
+    "start": "echo 'No build step defined.'"
+  },
+  "author": "",
+  "license": "MIT"
+} 
