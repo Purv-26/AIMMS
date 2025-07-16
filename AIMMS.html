@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <link rel="stylesheet" hres="Main.html">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AIMMS - AI Medical Multi-Solution Software</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-primary: #111827;
+      --color-secondary: #6b7280;
+      --color-accent: #000000;
+      --color-accent-hover: #333333;
+      --color-card-bg: #f9fafb;
+      --color-shadow: rgba(0,0,0,0.05);
+      --color-error: #ef4444;
+
+      --font-family: 'Poppins', sans-serif;
+
+      --radius: 0.75rem;
+      --spacing-vertical: 5rem;
+      --container-max-width: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--color-bg);
+      color: var(--color-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    h1,h2,h3,h4 {
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      text-align: center;
+      color: var(--color-primary);
+    }
+
+    h3 {
+      font-size: 1.375rem;
+    }
+
+    p {
+      color: var(--color-secondary);
+      font-size: 1.125rem;
+      margin: 0 0 1.25rem 0;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s ease;
+    }
+    a:hover,
+    a:focus {
+      border-color: var(--color-primary);
+        outline: none;
+      }
+
+    .container {
+      max-width: var(--container-max-width);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--color-bg);
+      z-index: 50;
+      box-shadow: 0 1px 4px var(--color-shadow);
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    #btn-send,
+    #btn-voice,
+    #btn-reset {
+      background-color: var(--color-accent);
+      border: none;
+      border-radius: var(--radius);
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0 1.5rem;
+      transition: background-color 0.3s ease, transform 0.25s ease;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+    }
+
+    #btn-send:hover,
+    #btn-send:focus,
+    #btn-voice:hover,
+    #btn-voice:focus,
+    #btn-reset:hover,
+    #btn-reset:focus {
+      background-color: var(--color-accent-hover);
+      outline: none;
+      transform: scale(1.05);
+    }
+
+    nav {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.75rem;
+      cursor: default;
+      user-select: none;
+      letter-spacing: 0.05em;
+      color: var(--color-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      align-items: center;
+    }
+
+    .nav-links a,
+    .nav-links button {
+      background: none;
+      border: none;
+      color: var(--color-primary);
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      font-weight: 600;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      font-family: var(--font-family);
+      user-select: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus,
+    .nav-links button:hover,
+    .nav-links button:focus {
+      border-color: var(--color-primary);
+      outline: none;
+      color: var(--color-accent-hover);
+    }
+
+    main {
+      padding-top: var(--spacing-vertical);
+      padding-bottom: var(--spacing-vertical);
+      text-align: center;
+    }
+
+    .hero p {
+      font-weight: 400;
+      margin-top: 1rem;
+      margin-bottom: 0;
+    }
+
+    .btn-primary {
+      margin-top: 3rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+      padding: 1.25rem 3rem;
+      border-radius: var(--radius);
+      background-color: var(--color-accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.25s ease;
+      user-select: none;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: var(--color-accent-hover);
+      outline: none;
+      transform: scale(1.06);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    section#features {
+      padding-top: 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      font-weight: 700;
+      font-size: 2.25rem;
+      color: var(--color-primary);
+    }
+
+    .features {
+      display: grid;
+      gap: 3rem;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      max-width: var(--container-max-width);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .card {
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 12px var(--color-shadow);
+      padding: 2.25rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: default;
+      outline-offset: 4px;
+    }
+
+    .card:hover,
+    .card:focus-within {
+      box-shadow: 0 14px 30px rgba(0,0,0,0.15);
+      transform: translateY(-8px);
+      outline: none;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--color-primary);
+      user-select: none;
+      fill: none;
+      stroke: var(--color-primary);
+      stroke-width: 2;
+    }
+
+    .card h3 {
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.375rem;
+      line-height: 1.2;
+    }
+
+    .card p {
+      flex-grow: 1;
+      color: var(--color-secondary);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    #scanner {
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background: var(--color-card-bg);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 15px var(--color-shadow);
+      text-align: center;
+    }
+
+    #scanner p {
+      font-size: 1.125rem;
+      color: var(--color-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    #scanner input[type="file"] {
+      cursor: pointer;
+      border-radius: var(--radius);
+      padding: 0.9rem 1.25rem;
+      font-size: 1.125rem;
+      border: 1px solid #d1d5db;
+      transition: border-color 0.3s ease;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    #scanner input[type="file"]:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 4px rgba(0,0,0,0.12);
+    }
+
+    .diagnosis-result {
+      margin-top: 1.5rem;
+      color: var(--color-primary);
+      font-weight: 700;
+      min-height: 3rem;
+      user-select: text;
+      font-size: 1.125rem;
+    }
+
+    #dashboards {
+      max-width: var(--container-max-width);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .dashboard-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .tab-button {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      font-family: var(--font-family);
+      color: var(--color-secondary);
+      user-select: none;
+    }
+
+    .tab-button.active {
+      border-color: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .tab-content {
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 6px 10px var(--color-shadow);
+      min-height: 280px;
+      font-weight: 600;
+      color: var(--color-primary);
+      outline-offset: 4px;
+    }
+
+    .dashboard-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .dashboard-list li {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.75rem 0;
+      display: flex;
+      justify-content: space-between;
+      color: var(--color-secondary);
+      font-weight: 600;
+    }
+
+    .patient-info p {
+      font-size: 1rem;
+      color: var(--color-primary);
+      margin: 0.5rem 0;
+    }
+
+    #about-creator {
+      margin-top: 100px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 2rem;
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+      text-align: center;
+      color: var(--color-primary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: 0.875rem;
+      color: var(--color-secondary);
+      user-select: none;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      h2 {
+        font-size: 1.75rem;
+      }
+      .btn-primary {
+        width: 100%;
+      }
+      .features {
+        grid-template-columns: 1fr;
+      }
+      nav {
+        padding: 0 1rem;
+      }
+      .ai-doctor-grid,
+      .chat-main {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      z-index: 10000;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: var(--color-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+      max-width: 400px;
+      width: 100%;
+      padding: 2.5rem 2rem;
+      position: relative;
+      user-select: none;
+    }
+    .modal-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.8rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--color-secondary);
+      font-weight: 700;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    .modal-close:hover,
+    .modal-close:focus {
+      color: var(--color-primary);
+      outline: none;
+    }
+    form label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+      user-select: text;
+      color: var(--color-primary);
+    }
+    form input[type="text"],
+    form input[type="password"],
+    form select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-family: var(--font-family);
+      font-size: 1rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      transition: border-color 0.3s ease;
+      user-select: text;
+    }
+    form input[type="text"]:focus,
+    form input[type="password"]:focus,
+    form select:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.07);
+    }
+    .form-error {
+      color: var(--color-error);
+      font-size: 0.85rem;
+      margin-top: -0.75rem;
+      margin-bottom: 0.75rem;
+      display: none;
+      user-select: text;
+    }
+    form button[type="submit"] {
+      background: var(--color-accent);
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.75rem;
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease, transform 0.25s ease;
+      width: 100%;
+    }
+    form button[type="submit"]:hover,
+    form button[type="submit"]:focus {
+      background: var(--color-accent-hover);
+      outline: none;
+      transform: scale(1.05);
+    }
+    .form-toggle {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      user-select: text;
+      color: var(--color-secondary);
+    }
+    .form-toggle button {
+      background: none;
+      border: none;
+      color: var(--color-accent);
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      padding: 0;
+    }
+    .form-toggle button:hover,
+    .form-toggle button:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: var(--container-max-width);
+      margin: 2rem auto 1rem auto;
+      padding: 0 2rem;
+    }
+    .dashboard-header h2 {
+      margin: 0;
+      font-size: 2rem;
+      user-select: text;
+    }
+    .btn-logout {
+      background: var(--color-error);
+      border: none;
+      border-radius: var(--radius);
+      color: white;
+      font-weight: 700;
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      user-select: none;
+    }
+    .btn-logout:hover,
+    .btn-logout:focus {
+      background: #b91c1c;
+      outline: none;
+      transform: scale(1.05);
+    }
+
+    #ai-doctors {
+      max-width: var(--container-max-width);
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: var(--spacing-vertical);
+      padding-bottom: 3rem;
+    }
+
+    #ai-doctors h2 {
+      text-align: center;
+      font-weight: 800;
+      font-size: 2.75rem;
+      margin-bottom: 3rem;
+      color: var(--color-primary);
+    }
+
+    .ai-doctor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+      gap: 3rem;
+    }
+
+    .ai-doctor-card {
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 12px var(--color-shadow);
+      padding: 2.25rem 2rem;
+      outline-offset: 4px;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .ai-doctor-card:hover,
+    .ai-doctor-card:focus-within {
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      transform: translateY(-8px);
+      outline: none;
+    }
+
+    .ai-doctor-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+      user-select: none;
+      fill: none;
+      stroke: var(--color-primary);
+      stroke-width: 2;
+    }
+
+    .ai-doctor-icon svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--color-primary);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .ai-doctor-card h3 {
+      font-weight: 800;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      color: var(--color-primary);
+    }
+
+    .ai-doctor-card p {
+      font-size: 1rem;
+      color: var(--color-secondary);
+      line-height: 1.5;
+      margin-bottom: 0;
+      flex-grow: 1;
+    }
+    
+    #ai-chatbox {
+      max-width: var(--container-max-width);
+      background: var(--color-card-bg);
+      margin: 4rem auto 3rem auto;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    #ai-chatbox h2 {
+      font-weight: 800;
+      font-size: 2.75rem;
+      color: var(--color-primary);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    #doctor-select {
+      max-width: 400px;
+      margin: 0 auto 1.75rem auto;
+      font-size: 1.125rem;
+      font-weight: 600;
+      background: var(--color-bg);
+      border: 2px solid var(--color-accent);
+      border-radius: var(--radius);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.3s ease;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      position: relative;
+      color: var(--color-primary);
+    }
+    #doctor-select:focus {
+      outline: none;
+      border-color: var(--color-accent-hover);
+      box-shadow: 0 0 6px rgba(0,0,0,0.15);
+    }
+    #doctor-select option {
+      font-weight: 400;
+    }
+    #chat-window {
+      background: #fff;
+      border: 1.5px solid #ddd;
+      border-radius: var(--radius);
+      height: 360px;
+        max-width: 700px;
+        margin: 0 auto 1.75rem auto;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      user-select: none;
+      scroll-behavior: smooth;
+    }
+    .chat-message {
+      max-width: 80%;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 1.125rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      user-select: text;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+    .chat-message:hover {
+      opacity: 1;
+    }
+    .chat-message.user {
+      align-self: flex-end;
+      background-color: var(--color-accent);
+      color: #fff;
+      border-top-right-radius: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .chat-message.doctor {
+      align-self: flex-start;
+      background-color: var(--color-card-bg);
+      color: var(--color-primary);
+      border-top-left-radius: 0;
+      font-weight: 600;
+    }
+    #chat-input-container {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1rem;
+    }
+    #chat-input {
+      flex-grow: 1;
+      font-size: 1.125rem;
+      border: 1.5px solid #ddd;
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      font-family: var(--font-family);
+      resize: none;
+      min-height: 48px;
+      max-height: 96px;
+      transition: border-color 0.3s ease;
+    }
+    #chat-input:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 6px rgba(0,0,0,0.15);
+    }
+    #btn-send, #btn-voice #btn-reset {
+      background-color: var(--color-accent);
+      border: none;
+      border-radius: var(--radius);
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0 1.5rem;
+      transition: background-color 0.3s ease, transform 0.25s ease;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #btn-send:hover,
+    #btn-send:focus,
+    #btn-voice:hover,
+    #btn-reset:hover {
+      background-color: var(--color-accent-hover);
+      outline: none;
+      transform: scale(1.05);
+    }
+    #chat-window::-webkit-scrollbar {
+      width: 10px;
+    }
+    #chat-window::-webkit-scrollbar-thumb {
+      background: #cbd5e0;
+      border-radius: 5px;
+    }
+    #chat-window::-webkit-scrollbar-track {
+      background: #f9fafb;
+      border-radius: 5px;
+    }
+
+  </style>
+</head>
+<body>
+  <header role="banner" id="headerMain">
+    <nav aria-label="Primary navigation">
+      <div class="logo" tabindex="0" aria-label="AIMMS Logo">AIMMS</div>
+      <div class="nav-links" id="navLinksPublic">
+        <a href="#features" tabindex="0">Features</a>
+        <a href="#ai-doctors" tabindex="0">AI Doctors</a>
+        <a href="#about-creator" tabindex="0">About Creator</a>
+        <button id="btnLogin" aria-haspopup="dialog" aria-controls="loginModal" aria-expanded="false" type="button">Login / Signup</button>
+      </div>
+      <div class="nav-links" id="navLinksLoggedIn" style="display:none;">
+        <span id="navUserRole" aria-live="polite"></span>
+        <button id="btnLogout" type="button">Logout</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div id="public-content" tabindex="-1">
+      <section class="hero" id="hero" aria-label="Hero introduction">
+        <h1>Welcome to AIMMS: The Ultimate AI-Powered Medical Multi-Solution Software</h1>
+        <p>Your comprehensive AI doctor system, advanced medical report scanner, secure patient &amp; doctor dashboards, and robust database — all in one powerful platform.</p>
+        <button class="btn-primary" onclick="document.getElementById('ai-chatbox').scrollIntoView({behavior:'smooth'})" aria-label="Get Started - Scroll to Upload Section" type="button">Get Started</button>
+      </section>
+
+      <section id="ai-doctors" aria-labelledby="ai-doctors-title">
+        <h2 id="ai-doctors-title">All Types of AI Doctors — Unmatched Medical Knowledge</h2>
+        <div class="ai-doctor-grid" role="list">
+          <article class="ai-doctor-card" role="listitem" tabindex="0" aria-label="General Physician AI Doctor">
+            <svg class="ai-doctor-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 16v-4m0 0l3 2m-3-2l-3 2" />
+            </svg>
+            <h3>General Physician AI</h3>
+            <p>Extensive MBBS expertise to provide comprehensive primary care, diagnose illnesses, and prescribe optimized treatments with ultimate accuracy.</p>
+          </article>
+          <article class="ai-doctor-card" role="listitem" tabindex="0" aria-label="Radiologist AI Doctor">
+            <svg class="ai-doctor-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+              <path d="M8 13h8M8 17h8" />
+            </svg>
+            <h3>Radiologist AI</h3>
+            <p>Analyzes medical images like X-rays, MRIs, CT scans, detecting abnormalities and early disease markers faster than human counterparts.</p>
+          </article>
+          <article class="ai-doctor-card" role="listitem" tabindex="0" aria-label="Cardiologist AI Doctor">
+            <svg class="ai-doctor-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <path d="M12 21s-6-4.35-6-9a6 6 0 0 1 12 0c0 4.65-6 9-6 9z"/>
+            </svg>
+            <h3>Cardiologist AI</h3>
+            <p>Offers in-depth cardiovascular diagnostics and personalized treatment plans leveraging massive datasets and real-time analysis.</p>
+          </article>
+          <article class="ai-doctor-card" role="listitem" tabindex="0" aria-label="Oncologist AI Doctor">
+            <svg class="ai-doctor-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12h8" />
+            </svg>
+            <h3>Oncologist AI</h3>
+            <p>Detects cancerous cells early and recommends evidence-based treatments from global oncology research and clinical trials.</p>
+          </article>
+          <article class="ai-doctor-card" role="listitem" tabindex="0" aria-label="Neurologist AI Doctor">
+            <svg class="ai-doctor-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <path d="M12 2a10 10 0 0 0-4 19.13m1-3.74c-1-1.2-2-3 1-4m2-2l2 3" />
+            </svg>
+            <h3>Neurologist AI</h3>
+            <p>Specializes in nervous system disorders, synthesizing neuroimaging, genetic, and clinical data into cutting-edge therapeutic suggestions.</p>
+          </article>
+          <article class="ai-doctor-card" role="listitem" tabindex="0" aria-label="Pediatrician AI Doctor">
+            <svg class="ai-doctor-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M7 9h10M7 14h6" />
+            </svg>
+            <h3>Pediatrician AI</h3>
+            <p>Expert care for infants, children, and adolescents, tailored diagnostics and preventive medicine empowered by pediatric research.</p>
+          </article>
+          <article class="ai-doctor-card" role="listitem" tabindex="0" aria-label="Dermatologist AI Doctor">
+            <svg class="ai-doctor-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <rect x="7" y="7" width="10" height="10" rx="4" ry="4" />
+              <path d="M12 7v10" />
+            </svg>
+            <h3>Dermatologist AI</h3>
+            <p>Precise skin condition analyses, including early melanoma detection and effective treatment recommendations with vast dermatological data.</p>
+          </article>
+          <article class="ai-doctor-card" role="listitem" tabindex="0" aria-label="Psychiatrist AI Doctor">
+            <svg class="ai-doctor-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9 9h6M9 15h6" />
+            </svg>
+            <h3>Psychiatrist AI</h3>
+            <p>Combines behavioral science and AI-driven therapy models offering personalized mental health assessments and ongoing support.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="ai-chatbox" aria-label="Chat With AI Doctors">
+        <h2>Chat With Our Expert AI Doctors</h2>
+        <select id="doctor-select" aria-label="Select AI Doctor type for chat">
+          <option value="General Physician">General Physician</option>
+          <option value="Radiologist">Radiologist</option>
+          <option value="Cardiologist">Cardiologist</option>
+          <option value="Oncologist">Oncologist</option>
+          <option value="Neurologist">Neurologist</option>
+          <option value="Pediatrician">Pediatrician</option>
+          <option value="Dermatologist">Dermatologist</option>
+          <option value="Psychiatrist">Psychiatrist</option>
+        </select>
+        <div id="chat-window" role="log" aria-live="polite" aria-relevant="additions" tabindex="0"></div>
+        <div id="chat-input-container">
+          <textarea id="chat-input" placeholder="Type your message here..." rows="2" aria-label="Type your message"></textarea>
+          <button id="btn-send" aria-label="Send message" type="button">Send</button>
+            <button id="btn-voice" aria-label="Send message" type="button">🎤 Speak</button>
+            <button id="btn-reset" aria-label="Send message" type="button">Reset Chat</button>
+        </div>
+      </section>
+
+      <section id="features" aria-labelledby="features-title">
+        <h2 class="section-title" id="features-title">Core Features of AIMMS</h2>
+        <div class="features" role="list">
+          <article class="card" role="listitem" tabindex="0" aria-label="Medical Report Scanner">
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <rect x="3" y="4" width="18" height="16" rx="2" ry="2" />
+              <path d="M7 12h10M7 16h6" />
+            </svg>
+            <h3>Medical Report Scanner</h3>
+            <p>Upload MRI, CT scans, and other reports for AI analysis to detect problems and suggest treatments.</p>
+          </article>
+          <article class="card" role="listitem" tabindex="0" aria-label="Secure Database">
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <rect x="4" y="4" width="16" height="16" rx="3" ry="3" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <h3>Robust &amp; Secure Database</h3>
+            <p>Strongly encrypted, scalable storage ensuring privacy and integrity of sensitive medical data.</p>
+          </article>
+          <article class="card" role="listitem" tabindex="0" aria-label="Mobile App">
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <rect x="7" y="2" width="10" height="20" rx="2" ry="2" />
+              <circle cx="12" cy="19" r="1" />
+            </svg>
+            <h3>Mobile App</h3>
+            <p>Native mobile experience for seamless communication and health tracking on the go.</p>
+          </article>
+          <article class="card" role="listitem" tabindex="0" aria-label="Comprehensive Medical Solutions">
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <path d="M7 7h10v10H7z" />
+              <path d="M5 5h14v14H5z" />
+            </svg>
+            <h3>Comprehensive Medical Solutions</h3>
+            <p>From diagnosis to treatment recommendations across all medical fields integrated smartly by AI.</p>
+          </article>
+          <article class="card" role="listitem" tabindex="0" aria-label="Strong Security">
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" >
+              <rect x="6" y="11" width="12" height="7" rx="2" ry="2" />
+              <path d="M9 11V7h6v4" />
+            </svg>
+            <h3>Strong Security</h3>
+            <p>Multi-layered protocols, end-to-end encryption, and compliance with medical standards such as HIPAA.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="scanner" aria-labelledby="scanner-title">
+        <h2 class="section-title" id="scanner-title">Medical Report Scanner</h2>
+        <div class="scanner" role="region" aria-live="polite" aria-atomic="true" tabindex="0">
+          <p>Select your MRI, CT scan, or other medical report to upload. Our AI will analyze and provide a diagnostic suggestion.</p>
+          <input type="file" id="fileInput" aria-label="Upload medical report file" accept=".jpg,.jpeg,.png,.pdf" />
+          <div id="diagnosisResult" class="diagnosis-result" aria-live="polite" aria-atomic="true" role="status"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <section id="about-creator" aria-labelledby="about-creator-title">
+      <h2 class="section-title" id="about-creator-title">About the AIMMS</h2>
+      <div id="aboutCreator" class="about-creator">
+        <h3>Purv Kevadiya</h3>
+        <p>
+        AIMMS is an advanced AI-powered medical multi-solution platform developed by <strong>Purv Kevadiya</strong>, a group of data analysis and software engineering experts. The software is designed to revolutionize healthcare by integrating state-of-the-art artificial intelligence with robust medical knowledge, providing comprehensive diagnostic tools, secure data management, and seamless communication between doctors and patients.
+        </p>
+        <p>
+        Team Codex is committed to delivering innovative, secure, and reliable solutions that empower healthcare professionals and patients alike, ensuring privacy, accuracy, and efficiency at every step.
+        </p>
+      </div>
+      </section>
+    </div>
+    
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>&copy; 2024 AIMMS. All rights reserved.</p>
+    </div>
+  </footer>
+
+<div id="loginModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle" aria-describedby="loginModalDesc" tabindex="-1">
+  <div class="modal-content">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Close login modal" type="button">&times;</button>
+    <h2 id="loginModalTitle">Login / Signup</h2>
+
+    <form id="authForm" method="POST" enctype="multipart/form-data">
+      <label for="inputUsername">Username</label>
+      <input type="text" id="inputUsername" name="username" required />
+
+      <label for="inputPassword">Password</label>
+      <input type="password" id="inputPassword" name="password" required />
+
+      <label for="selectRole">I am a</label>
+      <select id="selectRole" name="role" required>
+        <option value="">Select role</option>
+        <option value="doctor">Doctor</option>
+        <option value="patient">Patient</option>
+        <option value="admin">Admin</option>
+      </select>
+
+      <div id="doctorProofContainer" style="display: none;">
+        <label for="doctorProof">Upload Doctor Proof</label>
+        <input type="file" id="doctorProof" name="proof" accept=".jpg,.jpeg,.png,.pdf" />
+      </div>
+
+      <button type="submit" id="submitAuthBtn">Login</button>
+    </form>
+
+    <div class="form-toggle" id="formToggleText">
+      Don't have an account? <button id="toggleModeBtn" type="button">Sign Up</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const loginModal = document.getElementById('loginModal');
+  const btnLogin = document.getElementById('btnLogin');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const authForm = document.getElementById('authForm');
+  let toggleModeBtn = document.getElementById('toggleModeBtn');
+  const formToggleText = document.getElementById('formToggleText');
+  const submitAuthBtn = document.getElementById('submitAuthBtn');
+  const doctorProofContainer = document.getElementById('doctorProofContainer');
+  const selectRole = document.getElementById('selectRole');
+
+  let isLoginMode = true;
+
+  // Open modal (call this from your login button)
+  function showModal() {
+    loginModal.classList.add('active');
+  }
+
+  // Close modal
+  function hideModal() {
+    loginModal.classList.remove('active');
+    authForm.reset();
+    doctorProofContainer.style.display = 'none';
+    // Restore the Admin option when closing the modal
+    if (!isAdminOptionPresent()) {
+      addAdminOption();
+    }
+  }
+
+  // Toggle between Login and Signup modes
+  function toggleMode() {
+    isLoginMode = !isLoginMode;
+    submitAuthBtn.textContent = isLoginMode ? 'Login' : 'Sign Up';
+    toggleModeBtn.textContent = isLoginMode ? 'Sign Up' : 'Login';
+
+    // Update the form toggle text
+    formToggleText.innerHTML = isLoginMode
+      ? "Don't have an account? <button id='toggleModeBtn' type='button'>Sign Up</button>"
+      : "Already have an account? <button id='toggleModeBtn' type='button'>Login</button>";
+
+    authForm.action = isLoginMode ? 'login.php' : 'signup.php';
+
+    // Re-attach the event listener to the toggleModeBtn after updating its HTML
+    toggleModeBtn = document.getElementById('toggleModeBtn'); // Re-query the element
+    toggleModeBtn.addEventListener('click', toggleMode);
+
+    // Hide/show proof field if not doctor
+    doctorProofContainer.style.display = 'none';
+    authForm.reset();
+
+    // Remove or add the Admin option based on the mode
+    if (!isLoginMode) {
+      removeAdminOption();
+    } else if (!isAdminOptionPresent()) {
+      addAdminOption();
+    }
+  }
+
+  // Handle doctor proof visibility
+  selectRole.addEventListener('change', () => {
+    const role = selectRole.value;
+    doctorProofContainer.style.display = (role === 'doctor' && !isLoginMode) ? 'block' : 'none';
+  });
+
+  // Listeners
+  modalCloseBtn.addEventListener('click', hideModal);
+  loginModal.addEventListener('click', (event) => {
+    if (event.target === loginModal) {
+      hideModal();
+    }
+  });
+
+  // Event listener for the "Open Login/Signup Modal" button
+  if (btnLogin) {
+    btnLogin.addEventListener('click', showModal);
+  }
+
+  // Initial setup for toggleModeBtn (important: do this after the element exists in the DOM)
+  if (toggleModeBtn) {
+    toggleModeBtn.addEventListener('click', toggleMode);
+  }
+
+  authForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const username = document.getElementById('inputUsername').value;
+  const password = document.getElementById('inputPassword').value;
+  const role = document.getElementById('selectRole').value;
+  const proofFile = document.getElementById('doctorProof').files[0];
+
+  if (!username || !password || !role) {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  if (isLoginMode) {
+    // LOGIN MODE
+    const response = await fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username,
+        password,
+        role: role.toUpperCase() // sends as 'PATIENT', 'DOCTOR', 'ADMIN'
+      })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      // Redirect by role
+      if (role === 'doctor') {
+        window.location.href = 'Doctor.html';
+      } else if (role === 'patient') {
+        window.location.href = 'Patient.html';
+      } else if (role === 'admin') {
+        window.location.href = 'Admin.html';
+      }
+    } else {
+      alert(data.message);
+    }
+  } else {
+    // SIGNUP MODE
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    if (role === 'doctor') {
+      if (!proofFile) {
+        alert("Please upload doctor proof.");
+        return;
+      }
+      formData.append('proof', proofFile);
+    }
+
+    const endpoint = role === 'doctor' ? 'doctor' : 'patient';
+
+    const response = await fetch(`http://localhost:3000/signup/${endpoint}`, {
+  method: 'POST',
+  body: formData
+});
+
+    const data = await response.json();
+    if (response.ok) {
+      alert(data.message);
+      toggleMode(); // Switch back to login mode
+    } else {
+      alert(data.message || "Signup failed.");
+    }
+  }
+});
+
+  // Helper functions to manage the Admin option
+  function removeAdminOption() {
+    const adminOption = document.querySelector('#selectRole option[value="admin"]');
+    if (adminOption) {
+      adminOption.remove();
+    }
+  }
+
+    function addAdminOption() {
+    const selectRole = document.getElementById('selectRole');
+    if (selectRole) {
+      const adminOption = document.createElement('option');
+      adminOption.value = 'admin';
+      adminOption.textContent = 'Admin';
+      selectRole.appendChild(adminOption);
+    }
+  }
+
+  function isAdminOptionPresent() {
+    return document.querySelector('#selectRole option[value="admin"]') !== null;
+  }
+
+    // Existing JS unchanged except new chat box logic below added
+
+    // Chat box new implementation
+    const doctorSelect = document.getElementById('doctor-select');
+    const chatWindow = document.getElementById('chat-window');
+    const chatInput = document.getElementById('chat-input');
+    const btnSend = document.getElementById('btn-send');
+    const btnReset = document.getElementById('btn-reset');
+    const btnVoice = document.getElementById('btn-voice');
+
+    let chatHistory = [];
+    let messageCount = 0;
+    let userName = null;
+    let awaitingName = false;
+
+    const aiDoctorResponses = {
+      "General Physician": ["Hi! I'm your General Physician AI. How can I assist you today?"],
+      "Radiologist": ["Radiologist AI here. Need help understanding any scan or report?"],
+      "Cardiologist": ["Hello, Cardiologist AI online. Tell me your heart concerns."],
+      "Oncologist": ["Hi, I'm your AI Oncologist. Need help with a diagnosis or test?"],
+      "Neurologist": ["Hello, this is Neurologist AI. Feeling dizziness or headaches?"],
+      "Pediatrician": ["Hey! Pediatrician AI here. Is your child feeling unwell?"],
+      "Dermatologist": ["Hi! Dermatologist AI reporting. Skin rashes or acne issues?"],
+      "Psychiatrist": ["Welcome! Psychiatrist AI at your service. Want to talk?"]
+    };
+
+    function appendMessage(sender, message) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `chat-message ${sender}`;
+      msgDiv.textContent = message;
+      chatWindow.appendChild(msgDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function simulateTyping(message, callback) {
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'chat-message doctor';
+      typingDiv.textContent = 'Typing...';
+      chatWindow.appendChild(typingDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      setTimeout(() => {
+        typingDiv.remove();
+        appendMessage('doctor', message);
+        callback();
+        speak(message); // AI speaks back
+      }, 1000 + Math.random() * 600);
+    }
+function appendMessage(sender, message) {
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `chat-message ${sender}`;
+
+  if (sender === 'doctor') {
+    msgDiv.innerHTML = message; // ✅ Renders HTML like <a>
+  } else {
+    msgDiv.textContent = message; // ✅ For user messages, keep as plain text
+  }
+
+  chatWindow.appendChild(msgDiv);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-IN';
+      speechSynthesis.speak(utterance);
+    }
+
+    function generateAIReply(userMessage) {
+      const doctor = doctorSelect.value;
+      const baseReplies = aiDoctorResponses[doctor];
+      const msg = userMessage.toLowerCase();
+
+      if (!userName && (msg === "hi" || msg === "hii" || msg === "hello")) {
+        awaitingName = true;
+        return "Hi there! What's your name?";
+      }
+
+      if (awaitingName && !userName) {
+        userName = userMessage.trim();
+        awaitingName = false;
+        return `Nice to meet you, ${userName}! How can I assist you today?`;
+      }
+
+      if (msg.includes("thank you") || msg.includes("thanks") || msg === "thankyou") {
+        return "You're welcome! 😊 Let me know if you need anything else.";
+      }
+
+      if (msg.includes("schedule") || msg.includes("appointment") || msg.includes("timing")) {
+        return "Doctor is available Monday to Saturday, 9:00 AM – 5:00 PM. Please call the reception or book online.";
+      }
+
+      if (msg.includes("medicine")) {
+        return "Please describe your symptoms so I can suggest appropriate medicine (e.g., fever, headache, cold, etc).";
+      }
+
+      if (msg.includes("fever") || msg.includes("temperature")) {
+        return doctor === "Pediatrician"
+          ? "Use Paracetamol Syrup based on weight. Monitor the child and keep hydrated."
+          : "Take Paracetamol 500mg every 6 hours. Stay hydrated. Visit a doctor if fever persists.";
+      }
+
+      if (msg.includes("headache") || msg.includes("head pain") || msg.includes("migraine")) {
+        return doctor === "Neurologist"
+          ? "For migraines, consult a neurologist and consider Sumatriptan. Rest in a dark, quiet room."
+          : "You can take Paracetamol or Ibuprofen for headache. Avoid stress and stay hydrated.";
+      }
+
+      if (msg.includes("cold") || msg.includes("runny nose") || msg.includes("congestion")) {
+        return "Use Cetirizine for cold. Try steam inhalation and warm fluids for relief.";
+      }
+
+      if (msg.includes("cough") && msg.includes("fever")) {
+        return "Possible viral infection. Take Paracetamol and cough syrup (like Benadryl). Rest well.";
+      }
+
+      if (msg.includes("vomiting") || msg.includes("nausea")) {
+        return "Use Ondansetron or Domperidone. Hydrate with ORS. If severe, consult a doctor.";
+      }
+
+      if (msg.includes("stomach pain") || msg.includes("abdominal pain") || msg.includes("gas")) {
+        return "Take antacids like Gelusil or Dicyclomine. Avoid spicy food. See a doctor if pain continues.";
+      }
+      if (msg.includes("book") || msg.includes("appointment form")) {
+  return `You can book an appointment using this form: <a href="bookappoform.html" target="_blank">Click here to book</a>`;
+}
+
+      if (msg.startsWith("#")) {
+        if (msg === "#help") return "Commands: #symptoms, #advice, #reset";
+        if (msg === "#symptoms") return "List symptoms like 'fever, cough, headache'.";
+        if (msg === "#advice") return "Drink water, rest well, and eat healthy. Avoid stress.";
+        return "Unknown command. Use #help to list commands.";
+      }
+
+      return messageCount === 0 ? baseReplies[0] : baseReplies[Math.floor(Math.random() * baseReplies.length)];
+    }
+
+    btnSend.addEventListener('click', () => {
+      const userMsg = chatInput.value.trim();
+      if (!userMsg) return;
+      appendMessage('user', userMsg);
+      chatHistory.push({sender:'user', message: userMsg});
+      chatInput.value = '';
+      btnSend.disabled = true;
+
+      // Simulate AI thinking delay
+      setTimeout(() => {
+        const aiMsg = generateAIReply(userMsg);
+        appendMessage('doctor', aiMsg);
+        chatHistory.push({sender:'doctor', message: aiMsg});
+        btnSend.disabled = false;
+      }, 1200);
+    });
+
+    // Also allow sending message with Enter key (without shift)
+    chatInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        btnSend.click();
+      }
+    });
+        btnReset.addEventListener('click', () => {
+      chatWindow.innerHTML = '';
+      chatHistory = [];
+      messageCount = 0;
+      userName = null;
+      awaitingName = false;
+      appendMessage('doctor', aiDoctorResponses[doctorSelect.value][0]);
+    });
+
+    // On doctor type change, reset chat history and greet user
+    doctorSelect.addEventListener('change', () => {
+      chatWindow.innerHTML = '';
+      chatHistory = [];
+      messageCount = 0;
+      userName = null;
+      awaitingName = false;
+      appendMessage('doctor', aiDoctorResponses[doctorSelect.value][0]);
+    });
+
+    // Initialize with default doctor welcome message
+    (function init() {
+      appendMessage('doctor', aiDoctorResponses[doctorSelect.value][0]);
+    })();
+    // 🎤 Real-time Voice Recognition
+if ('webkitSpeechRecognition' in window) {
+  const recognition = new webkitSpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = false;
+  recognition.lang = 'en-IN';
+
+  btnVoice.addEventListener('click', () => {
+    recognition.start();
+    btnVoice.textContent = '🎙 Listening...';
+  });
+
+  recognition.onresult = event => {
+    const transcript = event.results[event.resultIndex][0].transcript.toLowerCase().trim();
+    btnVoice.textContent = '🎤 Speak';
+
+    chatInput.value = transcript;  // ✅ Show spoken text in input box
+    btnSend.click();               // ✅ Trigger send automatically
+  };
+
+  recognition.onerror = () => {
+    btnVoice.textContent = '🎤 Speak';
+    alert('Voice recognition error. Try again.');
+  };
+
+  recognition.onend = () => {
+    recognition.start(); // auto restart for real-time listening
+  };
+} else {
+  btnVoice.disabled = true;
+  btnVoice.title = 'Voice recognition not supported';
+}
+
+    // Simulated AI analysis on file upload
+    const fileInput = document.getElementById('fileInput');
+    const diagnosisResult = document.getElementById('diagnosisResult');
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        diagnosisResult.textContent = "No file selected.";
+        return;
+      }
+
+      // Check the file type
+      const validFileTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+      if (!validFileTypes.includes(file.type)) {
+        diagnosisResult.textContent = "Invalid file type. Please upload a JPEG, PNG, or PDF medical report.";
+        return;
+      }
+
+      // Check for medical-related keywords in the file name
+      const medicalKeywords = ['report', 'diagnosis', 'scan', 'MRI', 'CT', 'X-ray', 'ultrasound', 'blood', 'test'];
+      const fileName = file.name.toLowerCase();
+      const isMedicalReport = medicalKeywords.some(keyword => fileName.includes(keyword));
+
+      if (!isMedicalReport) {
+        diagnosisResult.textContent = "The uploaded file does not appear to be a medical report. Please upload a valid medical report.";
+        return;
+      }
+
+      diagnosisResult.textContent = "Analyzing report, please wait...";
+
+      // Simulate AI analysis with a timeout
+      setTimeout(() => {
+        const treatmentSuggestions = [
+          "No significant abnormalities detected. Continue regular check-ups.",
+          "Early signs of sinus infection detected; recommend antibiotics.",
+          "Possible mild tumor detected; suggest further specialist consultation.",
+          "Signs of inflammation found; suggest anti-inflammatory treatment.",
+          "MRI shows moderate joint degeneration; recommend physiotherapy.",
+          "CT scan reveals normal lung function; no treatment needed.",
+          "Indications of mild anemia; recommend blood tests and supplements.",
+          "For best results, consult with a healthcare professional for personalized advice."
+        ];
+
+        // Randomly select a treatment suggestion
+        const randomIndex = Math.floor(Math.random() * treatmentSuggestions.length);
+        diagnosisResult.textContent = "AI Suggestion: " + treatmentSuggestions[randomIndex];
+      }, 3000); // Simulate a delay for analysis
+    });
+
+  </script>
+
+</body>
+</html>
