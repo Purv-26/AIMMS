@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" >
 <head>
-  <link rel="stylesheet" hres="Main.html">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>AIMMS - AI Medical Multi-Solution Software</title>
@@ -571,11 +570,11 @@
         padding: 0.5rem 0.2rem;
         align-items: center;
         position: relative;
-        z-index: 2000;
+        z-index: 3000;
       }
       #hamburger {
         display: flex;
-        z-index: 2200;
+        z-index: 4000 !important;
       }
       .nav-links {
         position: absolute;
@@ -588,11 +587,11 @@
         gap: 1.2rem;
         width: 100vw;
         margin: 0;
-        padding: 1.2rem 0 1.2rem 0;
+        padding: calc(1.2rem + env(safe-area-inset-top, 0px)) 0 1.2rem 0;
         box-shadow: 0 8px 24px #000a;
         border-bottom-left-radius: 1rem;
         border-bottom-right-radius: 1rem;
-        z-index: 2100;
+        z-index: 3000 !important;
         transition: max-height 0.3s, opacity 0.3s;
         max-height: 0;
         opacity: 0;
@@ -614,6 +613,9 @@
       .logo {
         margin-bottom: 0;
         font-size: 1.3rem;
+      }
+      header {
+        padding-top: env(safe-area-inset-top, 0px);
       }
       #ai-chatbox {
         padding: 0.5rem 0.2rem;
@@ -1386,7 +1388,7 @@
         Team Codex is committed to delivering innovative, secure, and reliable solutions that empower healthcare professionals and patients alike, ensuring privacy, accuracy, and efficiency at every step.
         </p>
       </div>
-      </section>
+       </section>
     </div>
     
   </main>
@@ -1863,5 +1865,4 @@ if ('webkitSpeechRecognition' in window) {
   </script>
 
 </body>
-</html>
 </html>
