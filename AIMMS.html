@@ -1807,21 +1807,61 @@ if ('webkitSpeechRecognition' in window) {
   // Hamburger menu toggle for mobile
   const hamburger = document.getElementById('hamburger');
   const navLinksPublic = document.getElementById('navLinksPublic');
+  const body = document.body;
+
+  function openMenu() {
+    navLinksPublic.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    // Prevent background scroll
+    body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    navLinksPublic.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    body.style.overflow = '';
+  }
+  function toggleMenu(e) {
+    e.stopPropagation();
+    if (navLinksPublic.classList.contains('open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
   if (hamburger && navLinksPublic) {
-    hamburger.addEventListener('click', () => {
-      const isOpen = navLinksPublic.classList.toggle('open');
-      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
+    // Click and touch support
+    hamburger.addEventListener('click', toggleMenu);
+    hamburger.addEventListener('touchstart', toggleMenu);
+
     // Close menu when a link is clicked (for better UX)
     navLinksPublic.querySelectorAll('a,button').forEach(el => {
       el.addEventListener('click', () => {
-        navLinksPublic.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
+        closeMenu();
       });
+    });
+
+    // Close menu if clicking outside
+    document.addEventListener('click', (e) => {
+      if (
+        navLinksPublic.classList.contains('open') &&
+        !navLinksPublic.contains(e.target) &&
+        e.target !== hamburger
+      ) {
+        closeMenu();
+      }
+    });
+
+    // Close menu on resize (if switching to desktop)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 640) {
+        closeMenu();
+      }
     });
   }
 
   </script>
 
 </body>
+</html>
 </html>
