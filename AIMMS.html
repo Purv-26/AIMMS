@@ -1099,12 +1099,89 @@
       0% { opacity: 0; transform: scale(0.95) translateY(40px); }
       100% { opacity: 1; transform: none; }
     }
+    #hamburger {
+      display: none;
+      background: none;
+      border: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      z-index: 1001;
+      margin-left: 1rem;
+    }
+    .hamburger-bar {
+      width: 28px;
+      height: 3px;
+      background: #fff;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: all 0.3s;
+      display: block;
+    }
+    @media (max-width: 640px) {
+      nav {
+        flex-direction: row;
+        height: auto;
+        padding: 0.5rem 0.2rem;
+        align-items: center;
+        position: relative;
+      }
+      #hamburger {
+        display: flex;
+      }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(10,10,10,0.98);
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+        width: 100vw;
+        margin: 0;
+        padding: 1.2rem 0 1.2rem 0;
+        box-shadow: 0 8px 24px #000a;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        z-index: 1000;
+        transition: max-height 0.3s, opacity 0.3s;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .nav-links.open {
+        max-height: 400px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-links a, .nav-links button {
+        font-size: 1.2rem;
+        padding: 0.8rem 0;
+        width: 100%;
+        text-align: center;
+        border-radius: 0.5rem;
+      }
+      .logo {
+        margin-bottom: 0;
+        font-size: 1.3rem;
+      }
+    }
   </style>
 </head>
 <body>
   <header role="banner" id="headerMain">
     <nav aria-label="Primary navigation">
       <div class="logo" tabindex="0" aria-label="AIMMS Logo">AIMMS</div>
+      <button id="hamburger" aria-label="Open navigation menu" aria-controls="navLinksPublic" aria-expanded="false" type="button">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
       <div class="nav-links" id="navLinksPublic">
         <a href="#features" tabindex="0">Features</a>
         <a href="#ai-doctors" tabindex="0">AI Doctors</a>
@@ -1779,6 +1856,23 @@ if ('webkitSpeechRecognition' in window) {
         diagnosisResult.textContent = "AI Suggestion: " + treatmentSuggestions[randomIndex];
       }, 3000); // Simulate a delay for analysis
     });
+
+  // Hamburger menu toggle for mobile
+  const hamburger = document.getElementById('hamburger');
+  const navLinksPublic = document.getElementById('navLinksPublic');
+  if (hamburger && navLinksPublic) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinksPublic.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    // Close menu when a link is clicked (for better UX)
+    navLinksPublic.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('click', () => {
+        navLinksPublic.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   </script>
 
