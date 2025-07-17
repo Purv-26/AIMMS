@@ -1150,68 +1150,16 @@
       transition: all 0.3s;
       display: block;
     }
-    @media (max-width: 640px) {
-      header {
-        position: fixed !important;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        z-index: 9999 !important;
-        padding-top: env(safe-area-inset-top, 0px);
-      }
-      nav {
-        flex-direction: row;
-        height: 60px;
-        padding: 0.5rem 0.2rem;
-        align-items: center;
-        position: static;
-        z-index: 9999 !important;
-        width: 100vw;
+    @media (min-width: 641px) {
+      .nav-links {
+        display: flex !important;
+        position: static !important;
+        max-height: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
       }
       #hamburger {
-        display: flex;
-        z-index: 99999 !important;
-      }
-      .nav-links {
-        position: fixed !important;
-        top: 60px;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        background: rgba(10,10,10,0.98);
-        flex-direction: column;
-        align-items: center;
-        gap: 1.2rem;
-        margin: 0;
-        padding: calc(1.2rem + env(safe-area-inset-top, 0px)) 0 1.2rem 0;
-        box-shadow: 0 8px 24px #000a;
-        border-bottom-left-radius: 1rem;
-        border-bottom-right-radius: 1rem;
-        z-index: 9999 !important;
-        transition: max-height 0.3s, opacity 0.3s;
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-        pointer-events: none;
-        display: none;
-      }
-      .nav-links.open {
-        max-height: 400px;
-        opacity: 1;
-        pointer-events: auto;
-        display: flex !important;
-      }
-      .nav-links a, .nav-links button {
-        font-size: 1.2rem;
-        padding: 0.8rem 0;
-        width: 100%;
-        text-align: center;
-        border-radius: 0.5rem;
-      }
-      .logo {
-        margin-bottom: 0;
-        font-size: 1.3rem;
+        display: none !important;
       }
     }
   </style>
@@ -1827,20 +1775,24 @@ if ('webkitSpeechRecognition' in window) {
   const body = document.body;
 
   function openMenu() {
-    navLinksPublic.classList.add('open');
-    navLinksPublic.style.display = 'flex';
-    hamburger.setAttribute('aria-expanded', 'true');
-    // Prevent background scroll
-    body.style.overflow = 'hidden';
+    if (window.innerWidth <= 640) {
+      navLinksPublic.classList.add('open');
+      navLinksPublic.style.display = 'flex';
+      hamburger.setAttribute('aria-expanded', 'true');
+      body.style.overflow = 'hidden';
+    }
   }
   function closeMenu() {
-    navLinksPublic.classList.remove('open');
-    navLinksPublic.style.display = 'none';
-    hamburger.setAttribute('aria-expanded', 'false');
-    body.style.overflow = '';
+    if (window.innerWidth <= 640) {
+      navLinksPublic.classList.remove('open');
+      navLinksPublic.style.display = 'none';
+      hamburger.setAttribute('aria-expanded', 'false');
+      body.style.overflow = '';
+    }
   }
   function toggleMenu(e) {
     e.stopPropagation();
+    if (window.innerWidth > 640) return;
     if (navLinksPublic.classList.contains('open')) {
       closeMenu();
     } else {
