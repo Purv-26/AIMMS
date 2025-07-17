@@ -220,7 +220,6 @@
     }
 
     .nav-links {
-      display: flex;
       gap: 2rem;
       font-weight: 600;
       font-size: 1rem;
@@ -552,18 +551,6 @@
       }
     }
     @media (max-width: 640px) {
-      h1 {
-        font-size: 1.3rem;
-      }
-      h2 {
-        font-size: 1rem;
-      }
-      .btn-primary {
-        width: 100%;
-        font-size: 1rem;
-        padding: 0.8rem 0;
-        margin-top: 1.2rem;
-      }
       nav {
         flex-direction: row;
         height: auto;
@@ -573,7 +560,7 @@
         z-index: 3000;
       }
       #hamburger {
-        display: flex;
+        display: flex !important;
         z-index: 4000 !important;
       }
       .nav-links {
@@ -599,6 +586,7 @@
         pointer-events: none;
       }
       .nav-links.open {
+        display: flex !important;
         max-height: 400px;
         opacity: 1;
         pointer-events: auto;
@@ -1178,10 +1166,6 @@
         <a href="#ai-doctors" tabindex="0">AI Doctors</a>
         <a href="#about-creator" tabindex="0">About Creator</a>
         <button id="btnLogin" aria-haspopup="dialog" aria-controls="loginModal" aria-expanded="false" type="button">Login / Signup</button>
-      </div>
-      <div class="nav-links" id="navLinksLoggedIn" style="display:none;">
-        <span id="navUserRole" aria-live="polite"></span>
-        <button id="btnLogout" type="button">Logout</button>
       </div>
     </nav>
   </header>
@@ -1777,7 +1761,6 @@ if ('webkitSpeechRecognition' in window) {
   function openMenu() {
     if (window.innerWidth <= 640) {
       navLinksPublic.classList.add('open');
-      navLinksPublic.style.display = 'flex';
       hamburger.setAttribute('aria-expanded', 'true');
       body.style.overflow = 'hidden';
     }
@@ -1785,7 +1768,6 @@ if ('webkitSpeechRecognition' in window) {
   function closeMenu() {
     if (window.innerWidth <= 640) {
       navLinksPublic.classList.remove('open');
-      navLinksPublic.style.display = 'none';
       hamburger.setAttribute('aria-expanded', 'false');
       body.style.overflow = '';
     }
@@ -1801,18 +1783,14 @@ if ('webkitSpeechRecognition' in window) {
   }
 
   if (hamburger && navLinksPublic) {
-    // Click and touch support
     hamburger.addEventListener('click', toggleMenu);
-    hamburger.addEventListener('touchstart', toggleMenu);
 
-    // Close menu when a link is clicked (for better UX)
     navLinksPublic.querySelectorAll('a,button').forEach(el => {
       el.addEventListener('click', () => {
         closeMenu();
       });
     });
 
-    // Close menu if clicking outside
     document.addEventListener('click', (e) => {
       if (
         navLinksPublic.classList.contains('open') &&
@@ -1823,7 +1801,6 @@ if ('webkitSpeechRecognition' in window) {
       }
     });
 
-    // Close menu on resize (if switching to desktop)
     window.addEventListener('resize', () => {
       if (window.innerWidth > 640) {
         closeMenu();
