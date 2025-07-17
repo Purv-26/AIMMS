@@ -1607,17 +1607,6 @@
     let userName = null;
     let awaitingName = false;
 
-    const aiDoctorResponses = {
-      "General Physician": ["Hi! I'm your General Physician AI. How can I assist you today?"],
-      "Radiologist": ["Radiologist AI here. Need help understanding any scan or report?"],
-      "Cardiologist": ["Hello, Cardiologist AI online. Tell me your heart concerns."],
-      "Oncologist": ["Hi, I'm your AI Oncologist. Need help with a diagnosis or test?"],
-      "Neurologist": ["Hello, this is Neurologist AI. Feeling dizziness or headaches?"],
-      "Pediatrician": ["Hey! Pediatrician AI here. Is your child feeling unwell?"],
-      "Dermatologist": ["Hi! Dermatologist AI reporting. Skin rashes or acne issues?"],
-      "Psychiatrist": ["Welcome! Psychiatrist AI at your service. Want to talk?"]
-    };
-
     function appendMessage(sender, message) {
       const msgDiv = document.createElement('div');
       msgDiv.className = `chat-message ${sender}`;
@@ -1643,117 +1632,39 @@
       if (typingDiv) typingDiv.remove();
     }
 
-    function speak(text) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-IN';
-      speechSynthesis.speak(utterance);
+    async function sendToAIChat(messages) {
+      try {
+        const response = await fetch('http://localhost:3000/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages })
+        });
+        if (!response.ok) throw new Error('AI service error');
+        const data = await response.json();
+        return data.reply;
+      } catch (err) {
+        return null;
+      }
     }
 
-    function generateAIReply(userMessage) {
-      const doctor = doctorSelect.value;
-      const baseReplies = aiDoctorResponses[doctor];
-      const msg = userMessage.toLowerCase();
-
-      if (!userName && (msg === "hi" || msg === "hii" || msg === "hello")) {
-        awaitingName = true;
-        return "Hi there! 😊 What's your name?";
-      }
-
-      if (awaitingName && !userName) {
-        userName = userMessage.trim();
-        awaitingName = false;
-        return `Nice to meet you, <b>${userName}</b>! How can I help you today?`;
-      }
-
-      if (msg.includes("thank you") || msg.includes("thanks") || msg === "thankyou") {
-        return `You're welcome${userName ? ', ' + userName : ''}! 😊 Let me know if you need anything else.`;
-      }
-
-      if (msg.includes("worried") || msg.includes("scared") || msg.includes("anxious") || msg.includes("afraid")) {
-        return "It's normal to feel that way. I'm here to support you and answer any questions you have. 💙";
-      }
-      if (msg.includes("how are you") || msg.includes("how r u")) {
-        return "I'm an AI, but I'm always here and ready to help you! How are you feeling today?";
-      }
-      if (msg.includes("good morning") || msg.includes("good afternoon") || msg.includes("good evening")) {
-        return `Good day${userName ? ', ' + userName : ''}! How can I assist you?`;
-      }
-
-      if (msg.includes("schedule") || msg.includes("appointment") || msg.includes("timing")) {
-        return "Doctor is available Monday to Saturday, 9:00 AM – 5:00 PM. Please call the reception or book online.";
-      }
-
-      if (msg.includes("medicine")) {
-        return "Please describe your symptoms so I can suggest appropriate medicine (e.g., fever, headache, cold, etc).";
-      }
-
-      if (msg.includes("fever") || msg.includes("temperature")) {
-        return doctor === "Pediatrician"
-          ? "Use Paracetamol Syrup based on weight. Monitor the child and keep hydrated."
-          : "Take Paracetamol 500mg every 6 hours. Stay hydrated. Visit a doctor if fever persists.";
-      }
-
-      if (msg.includes("headache") || msg.includes("head pain") || msg.includes("migraine")) {
-        return doctor === "Neurologist"
-          ? "For migraines, consult a neurologist and consider Sumatriptan. Rest in a dark, quiet room."
-          : "You can take Paracetamol or Ibuprofen for headache. Avoid stress and stay hydrated.";
-      }
-
-      if (msg.includes("cold") || msg.includes("runny nose") || msg.includes("congestion")) {
-        return "Use Cetirizine for cold. Try steam inhalation and warm fluids for relief.";
-      }
-
-      if (msg.includes("cough") && msg.includes("fever")) {
-        return "Possible viral infection. Take Paracetamol and cough syrup (like Benadryl). Rest well.";
-      }
-
-      if (msg.includes("vomiting") || msg.includes("nausea")) {
-        return "Use Ondansetron or Domperidone. Hydrate with ORS. If severe, consult a doctor.";
-      }
-
-      if (msg.includes("stomach pain") || msg.includes("abdominal pain") || msg.includes("gas")) {
-        return "Take antacids like Gelusil or Dicyclomine. Avoid spicy food. See a doctor if pain continues.";
-      }
-      if (msg.includes("book") || msg.includes("appointment form")) {
-        return `You can book an appointment using this form: <a href="bookappoform.html" target="_blank">Click here to book</a>`;
-      }
-
-      if (msg.startsWith("#")) {
-        if (msg === "#help") return "Commands: #symptoms, #advice, #reset";
-        if (msg === "#symptoms") return "List symptoms like 'fever, cough, headache'.";
-        if (msg === "#advice") return "Drink water, rest well, and eat healthy. Avoid stress.";
-        return "Unknown command. Use #help to list commands.";
-      }
-
-      // More human-like fallback replies
-      const fallbackReplies = [
-        `I'm here to help${userName ? ', ' + userName : ''}! Could you tell me a bit more? 😊`,
-        "Can you describe your symptoms in a bit more detail?",
-        "I'm listening. Please go ahead.",
-        "Let me know how I can assist you today!",
-        "I'm here for you. Ask me anything about your health.",
-        "Your health and comfort are important to me."
-      ];
-      return messageCount === 0 ? baseReplies[0] : fallbackReplies[Math.floor(Math.random() * fallbackReplies.length)];
-    }
-
-    btnSend.addEventListener('click', () => {
+    btnSend.addEventListener('click', async () => {
       const userMsg = chatInput.value.trim();
       if (!userMsg) return;
       appendMessage('user', userMsg);
-      chatHistory.push({sender:'user', message: userMsg});
+      chatHistory.push({ role: 'user', content: userMsg });
       chatInput.value = '';
       btnSend.disabled = true;
-
       showTypingIndicator();
-      // Simulate AI thinking delay
-      setTimeout(() => {
-        removeTypingIndicator();
-        const aiMsg = generateAIReply(userMsg);
-        appendMessage('doctor', aiMsg);
-        chatHistory.push({sender:'doctor', message: aiMsg});
-        btnSend.disabled = false;
-      }, 1200);
+      // Send to backend AI
+      let aiMsg = await sendToAIChat(chatHistory);
+      removeTypingIndicator();
+      if (!aiMsg) {
+        aiMsg = "Sorry, I'm having trouble connecting to the AI service. Please try again later.";
+      } else {
+        chatHistory.push({ role: 'assistant', content: aiMsg });
+      }
+      appendMessage('doctor', aiMsg);
+      btnSend.disabled = false;
     });
 
     // Also allow sending message with Enter key (without shift)
