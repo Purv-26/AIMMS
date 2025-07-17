@@ -566,17 +566,43 @@
         margin-top: 1.2rem;
       }
       nav {
-        flex-direction: column;
+        flex-direction: row;
         height: auto;
         padding: 0.5rem 0.2rem;
+        align-items: center;
+        position: relative;
+        z-index: 2000;
+      }
+      #hamburger {
+        display: flex;
+        z-index: 2200;
       }
       .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(10,10,10,0.98);
         flex-direction: column;
         align-items: center;
         gap: 1.2rem;
-        width: 100%;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
+        width: 100vw;
+        margin: 0;
+        padding: 1.2rem 0 1.2rem 0;
+        box-shadow: 0 8px 24px #000a;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        z-index: 2100;
+        transition: max-height 0.3s, opacity 0.3s;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .nav-links.open {
+        max-height: 400px;
+        opacity: 1;
+        pointer-events: auto;
       }
       .nav-links a, .nav-links button {
         font-size: 1.2rem;
@@ -586,7 +612,7 @@
         border-radius: 0.5rem;
       }
       .logo {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0;
         font-size: 1.3rem;
       }
       #ai-chatbox {
@@ -1128,7 +1154,6 @@
         height: auto;
         padding: 0.5rem 0.2rem;
         align-items: center;
-        position: relative;
       }
       #hamburger {
         display: flex;
