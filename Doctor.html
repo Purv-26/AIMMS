@@ -1,0 +1,418 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+  body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9fafb;
+  color: #111827;
+  /* Add background image */
+  background-image: url('https://images.unsplash.com/photo-1532938314562-3a574ae19a36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhlYWx0aHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  }
+ 
+
+  header {
+  background-color: #111827;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  }
+ 
+
+  /* Animated background for header */
+  header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(-45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
+  z-index: 0;
+  animation: animatedBackground 5s linear infinite;
+  }
+ 
+
+  @keyframes animatedBackground {
+  0% {
+  transform: translateX(0);
+  }
+ 
+
+  100% {
+  transform: translateX(-50%);
+  }
+  }
+ 
+
+  .container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  }
+ 
+
+  h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  }
+ 
+
+  h2,
+  h3 {
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 1;
+  }
+ 
+
+  .btn-logout,
+  .btn-add,
+  .btn-view {
+  background: #4CAF50; /* Green */
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  position: relative;
+  overflow: hidden;
+  }
+ 
+
+  .btn-logout {
+  background: #ef4444; /* Red */
+  }
+ 
+
+  .btn-logout:hover {
+  background: #b91c1c;
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+ 
+
+  .btn-add:hover,
+  .btn-view:hover {
+  background: #388E3C;
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+ 
+
+  .btn-logout::before,
+  .btn-add::before,
+  .btn-view::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.4s;
+  z-index: 1;
+  }
+ 
+
+  .btn-logout:hover::before,
+  .btn-add:hover::before,
+  .btn-view:hover::before {
+  left: 100%;
+  }
+ 
+
+  .section {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fefefe;
+  transition: box-shadow 0.3s;
+  position: relative;
+  z-index: 1;
+  }
+ 
+
+  .section:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+ 
+
+  ul {
+  list-style-type: none;
+  padding: 0;
+  }
+ 
+
+  li {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  }
+ 
+
+  li:hover {
+  background-color: #e0e0e0;
+  }
+ 
+
+  /* Digital Clock */
+  .clock {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+  color: #111827;
+  }
+ 
+
+  /* Patient List Styles */
+  .patient-list {
+  margin-top: 1rem;
+  }
+ 
+
+  .patient-list ul {
+  list-style: none;
+  padding: 0;
+  }
+ 
+
+  .patient-list li {
+  background-color: #f0f0f0;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  }
+ 
+
+  .patient-list li:hover {
+  background-color: #e0e0e0;
+  }
+ 
+
+  /* Add Patient Form Styles */
+  .add-patient-form {
+  margin-top: 1rem;
+  }
+ 
+
+  .add-patient-form input[type="text"],
+  .add-patient-form input[type="email"] {
+  width: calc(100% - 20px);
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+  }
+ 
+
+  .add-patient-form input[type="text"]:focus,
+  .add-patient-form input[type="email"]:focus {
+  border-color: #4CAF50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  }
+  </style>
+ </head>
+ 
+
+ <body>
+ 
+
+  <header>
+  <h1>Doctor Dashboard</h1>
+  </header>
+ 
+
+  <div class="container">
+  <h2>Welcome, Dr. <span id="doctorName"></span>!</h2>
+  <p>Manage your patients and view reports.</p>
+ 
+
+  <div class="clock">
+  <!-- Digital clock will be displayed here -->
+  </div>
+ 
+
+  <section class="section patient-list">
+  <h3>Patient List</h3>
+  <ul id="patientList">
+  <!-- Patient list items will be dynamically added here -->
+  </ul>
+  <button class="btn-view" onclick="viewPatientDetails()">View Details</button>
+  </section>
+ 
+
+  <section class="section add-patient-form">
+  <h3>Add New Patient</h3>
+  <input type="text" id="newPatientName" placeholder="Patient Name">
+  <input type="email" id="newPatientEmail" placeholder="Patient Email">
+  <button class="btn-add" onclick="addPatient()">Add Patient</button>
+  </section>
+ 
+
+  <section class="section reports">
+  <h3>Reports</h3>
+  <ul>
+  <li>Report 1</li>
+  <li>Report 2</li>
+  <li>Report 3</li>
+  </ul>
+  </section>
+ 
+
+  <button class="btn-logout" onclick="logout()">Logout</button>
+  </div>
+ 
+
+  <script>
+  // Sample Doctor Data
+  const doctorData = {
+  name: "Smith"
+  };
+ 
+
+  // Sample Patient Data (replace with actual data fetching)
+  const patients = [{
+  id: 1,
+  name: "John Doe",
+  email: "john.doe@example.com"
+  },
+  {
+  id: 2,
+  name: "Jane Smith",
+  email: "jane.smith@example.com"
+  },
+  {
+  id: 3,
+  name: "David Lee",
+  email: "david.lee@example.com"
+  }
+  ];
+ 
+
+  // Function to update the digital clock
+  function updateClock() {
+  const clockElement = document.querySelector('.clock');
+  const now = new Date();
+ 
+
+  // Format the date
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const day = String(now.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
+ 
+
+  // Format the time in 12-hour format with AM/PM
+  let hours = now.getHours();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  const formattedTime = `${hours}:${minutes}:${seconds} ${ampm}`;
+ 
+
+  clockElement.textContent = `Date: ${formattedDate} Time: ${formattedTime}`;
+  }
+ 
+
+  // Function to load doctor data
+  function loadDoctorData() {
+  document.getElementById('doctorName').textContent = doctorData.name;
+  }
+ 
+
+  // Function to load patient list
+  function loadPatientList() {
+  const patientListElement = document.getElementById('patientList');
+  patientListElement.innerHTML = ''; // Clear existing list
+  patients.forEach(patient => {
+  const li = document.createElement('li');
+  li.textContent = `${patient.name} (${patient.email})`;
+  patientListElement.appendChild(li);
+  });
+  }
+ 
+
+  // Function to add a new patient
+  function addPatient() {
+  const newPatientName = document.getElementById('newPatientName').value;
+  const newPatientEmail = document.getElementById('newPatientEmail').value;
+ 
+
+  if (newPatientName && newPatientEmail) {
+  const newPatient = {
+  id: patients.length + 1,
+  name: newPatientName,
+  email: newPatientEmail
+  };
+  patients.push(newPatient);
+  loadPatientList(); // Reload the list to display the new patient
+ 
+
+  // Clear the input fields
+  document.getElementById('newPatientName').value = '';
+  document.getElementById('newPatientEmail').value = '';
+  } else {
+  alert('Please enter both patient name and email.');
+  }
+  }
+ 
+
+  // Function to view patient details (Placeholder)
+  function viewPatientDetails() {
+  alert('View patient details functionality will be implemented here.');
+  }
+ 
+
+  // Function to logout
+  function logout() {
+  sessionStorage.removeItem('aimmsCurrentUser');
+  window.location.href = 'index.html'; // Change to your login page URL
+  }
+ 
+
+  // Load all data on page load
+  window.onload = function () {
+  loadDoctorData();
+  loadPatientList();
+ 
+
+  // Update the clock every second
+  setInterval(updateClock, 1000);
+  };
+  </script>
+ </body>
+ </html>
