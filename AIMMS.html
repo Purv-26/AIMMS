@@ -1601,17 +1601,6 @@
     const btnSend = document.getElementById('btn-send');
     const btnReset = document.getElementById('btn-reset');
     const btnVoice = document.getElementById('btn-voice');
-    // Quick replies
-    let quickRepliesContainer = document.getElementById('quick-replies');
-    if (!quickRepliesContainer) {
-      quickRepliesContainer = document.createElement('div');
-      quickRepliesContainer.id = 'quick-replies';
-      quickRepliesContainer.style.display = 'flex';
-      quickRepliesContainer.style.flexWrap = 'wrap';
-      quickRepliesContainer.style.gap = '0.5rem';
-      quickRepliesContainer.style.margin = '0.5rem 0';
-      chatInput.parentNode.insertBefore(quickRepliesContainer, btnSend);
-    }
 
     let chatHistory = [];
     let messageCount = 0;
@@ -1619,96 +1608,28 @@
     let awaitingName = false;
 
     const aiDoctorResponses = {
-      "General Physician": [
-        "Hi! I'm your General Physician AI. How can I assist you today? 😊",
-        "Hello! I'm here to help with any health questions you have."
-      ],
-      "Radiologist": [
-        "Radiologist AI here. Need help understanding any scan or report? 🩻",
-        "Hello! I can help interpret your medical images."
-      ],
-      "Cardiologist": [
-        "Hello, Cardiologist AI online. Tell me your heart concerns. ❤️",
-        "Hi! I'm here for any heart-related questions."
-      ],
-      "Oncologist": [
-        "Hi, I'm your AI Oncologist. Need help with a diagnosis or test? 🧬",
-        "Hello! I can answer questions about cancer and treatments."
-      ],
-      "Neurologist": [
-        "Hello, this is Neurologist AI. Feeling dizziness or headaches? 🧠",
-        "Hi! Ask me anything about the nervous system."
-      ],
-      "Pediatrician": [
-        "Hey! Pediatrician AI here. Is your child feeling unwell? 🧒",
-        "Hello! I can help with children's health questions."
-      ],
-      "Dermatologist": [
-        "Hi! Dermatologist AI reporting. Skin rashes or acne issues? 🧴",
-        "Hello! Ask me about skin, hair, or nails."
-      ],
-      "Psychiatrist": [
-        "Welcome! Psychiatrist AI at your service. Want to talk? 🧘‍♂️",
-        "Hi! I'm here for mental health support."
-      ]
+      "General Physician": ["Hi! I'm your General Physician AI. How can I assist you today?"],
+      "Radiologist": ["Radiologist AI here. Need help understanding any scan or report?"],
+      "Cardiologist": ["Hello, Cardiologist AI online. Tell me your heart concerns."],
+      "Oncologist": ["Hi, I'm your AI Oncologist. Need help with a diagnosis or test?"],
+      "Neurologist": ["Hello, this is Neurologist AI. Feeling dizziness or headaches?"],
+      "Pediatrician": ["Hey! Pediatrician AI here. Is your child feeling unwell?"],
+      "Dermatologist": ["Hi! Dermatologist AI reporting. Skin rashes or acne issues?"],
+      "Psychiatrist": ["Welcome! Psychiatrist AI at your service. Want to talk?"]
     };
-
-    // Quick reply suggestions
-    const quickReplies = [
-      { text: "What are your hours?", value: "What are your hours?" },
-      { text: "I have a headache", value: "I have a headache" },
-      { text: "How do I book an appointment?", value: "How do I book an appointment?" },
-      { text: "Thank you!", value: "Thank you!" },
-      { text: "What medicine for fever?", value: "What medicine for fever?" }
-    ];
-    function renderQuickReplies() {
-      quickRepliesContainer.innerHTML = '';
-      quickReplies.forEach(q => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.textContent = q.text;
-        btn.className = 'quick-reply-btn';
-        btn.style.padding = '0.4rem 1rem';
-        btn.style.borderRadius = '1rem';
-        btn.style.border = '1px solid #ccc';
-        btn.style.background = '#222';
-        btn.style.color = '#fff';
-        btn.style.fontSize = '0.95rem';
-        btn.style.cursor = 'pointer';
-        btn.addEventListener('click', () => {
-          chatInput.value = q.value;
-          btnSend.click();
-        });
-        quickRepliesContainer.appendChild(btn);
-      });
-    }
-    renderQuickReplies();
 
     function appendMessage(sender, message) {
       const msgDiv = document.createElement('div');
       msgDiv.className = `chat-message ${sender}`;
 
       if (sender === 'doctor') {
-        msgDiv.innerHTML = message; // ✅ Renders HTML like <a>
+        msgDiv.innerHTML = message;
       } else {
-        msgDiv.textContent = message; // ✅ For user messages, keep as plain text
+        msgDiv.textContent = message;
       }
 
       chatWindow.appendChild(msgDiv);
       chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
-
-    function showTypingIndicator() {
-      const typingDiv = document.createElement('div');
-      typingDiv.className = 'chat-message doctor';
-      typingDiv.textContent = 'Doctor is typing...';
-      typingDiv.id = 'typing-indicator';
-      chatWindow.appendChild(typingDiv);
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
-    function removeTypingIndicator() {
-      const typingDiv = document.getElementById('typing-indicator');
-      if (typingDiv) typingDiv.remove();
     }
 
     function speak(text) {
@@ -1724,13 +1645,13 @@
 
       if (!userName && (msg === "hi" || msg === "hii" || msg === "hello")) {
         awaitingName = true;
-        return "Hi there! What's your name? 😊";
+        return "Hi there! What's your name?";
       }
 
       if (awaitingName && !userName) {
         userName = userMessage.trim();
         awaitingName = false;
-        return `Nice to meet you, <b>${userName}</b>! How can I assist you today?`;
+        return `Nice to meet you, ${userName}! How can I assist you today?`;
       }
 
       if (msg.includes("thank you") || msg.includes("thanks") || msg === "thankyou") {
@@ -1738,7 +1659,7 @@
       }
 
       if (msg.includes("schedule") || msg.includes("appointment") || msg.includes("timing")) {
-        return "👩‍⚕️ Doctor is available Monday to Saturday, 9:00 AM – 5:00 PM. Please call the reception or book online.";
+        return "Doctor is available Monday to Saturday, 9:00 AM – 5:00 PM. Please call the reception or book online.";
       }
 
       if (msg.includes("medicine")) {
@@ -1747,30 +1668,30 @@
 
       if (msg.includes("fever") || msg.includes("temperature")) {
         return doctor === "Pediatrician"
-          ? "🌡️ Use Paracetamol Syrup based on weight. Monitor the child and keep hydrated."
-          : "🌡️ Take Paracetamol 500mg every 6 hours. Stay hydrated. Visit a doctor if fever persists.";
+          ? "Use Paracetamol Syrup based on weight. Monitor the child and keep hydrated."
+          : "Take Paracetamol 500mg every 6 hours. Stay hydrated. Visit a doctor if fever persists.";
       }
 
       if (msg.includes("headache") || msg.includes("head pain") || msg.includes("migraine")) {
         return doctor === "Neurologist"
-          ? "For migraines, consult a neurologist and consider Sumatriptan. Rest in a dark, quiet room. 🧠"
-          : "You can take Paracetamol or Ibuprofen for headache. Avoid stress and stay hydrated. 💧";
+          ? "For migraines, consult a neurologist and consider Sumatriptan. Rest in a dark, quiet room."
+          : "You can take Paracetamol or Ibuprofen for headache. Avoid stress and stay hydrated.";
       }
 
       if (msg.includes("cold") || msg.includes("runny nose") || msg.includes("congestion")) {
-        return "🤧 Use Cetirizine for cold. Try steam inhalation and warm fluids for relief.";
+        return "Use Cetirizine for cold. Try steam inhalation and warm fluids for relief.";
       }
 
       if (msg.includes("cough") && msg.includes("fever")) {
-        return "Possible viral infection. Take Paracetamol and cough syrup (like Benadryl). Rest well. 🛌";
+        return "Possible viral infection. Take Paracetamol and cough syrup (like Benadryl). Rest well.";
       }
 
       if (msg.includes("vomiting") || msg.includes("nausea")) {
-        return "🤢 Use Ondansetron or Domperidone. Hydrate with ORS. If severe, consult a doctor.";
+        return "Use Ondansetron or Domperidone. Hydrate with ORS. If severe, consult a doctor.";
       }
 
       if (msg.includes("stomach pain") || msg.includes("abdominal pain") || msg.includes("gas")) {
-        return "Take antacids like Gelusil or Dicyclomine. Avoid spicy food. See a doctor if pain continues. 🍲";
+        return "Take antacids like Gelusil or Dicyclomine. Avoid spicy food. See a doctor if pain continues.";
       }
       if (msg.includes("book") || msg.includes("appointment form")) {
         return `You can book an appointment using this form: <a href="bookappoform.html" target="_blank">Click here to book</a>`;
@@ -1783,15 +1704,7 @@
         return "Unknown command. Use #help to list commands.";
       }
 
-      // More human-like fallback
-      const fallbackReplies = [
-        "I'm here to help! Could you please tell me more? 😊",
-        "Can you describe your symptoms in a bit more detail?",
-        "I'm listening. Please go ahead.",
-        "Let me know how I can assist you today!",
-        "I'm here for you. Ask me anything about your health."
-      ];
-      return messageCount === 0 ? baseReplies[0] : fallbackReplies[Math.floor(Math.random() * fallbackReplies.length)];
+      return messageCount === 0 ? baseReplies[0] : baseReplies[Math.floor(Math.random() * baseReplies.length)];
     }
 
     btnSend.addEventListener('click', () => {
@@ -1802,10 +1715,8 @@
       chatInput.value = '';
       btnSend.disabled = true;
 
-      showTypingIndicator();
       // Simulate AI thinking delay
       setTimeout(() => {
-        removeTypingIndicator();
         const aiMsg = generateAIReply(userMsg);
         appendMessage('doctor', aiMsg);
         chatHistory.push({sender:'doctor', message: aiMsg});
