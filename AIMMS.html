@@ -8,20 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet" />
   <style>
     :root {
-      --color-bg: #ffffff;
-      --color-primary: #111827;
-      --color-secondary: #6b7280;
-      --color-accent: #000000;
-      --color-accent-hover: #333333;
-      --color-card-bg: #f9fafb;
-      --color-shadow: rgba(0,0,0,0.05);
+      --color-bg: #0a0a0a;
+      --color-primary: #fff;
+      --color-secondary: #b0b3b8;
+      --color-accent: #fff;
+      --color-accent-hover: #e0e0e0;
+      --color-card-bg: rgba(255,255,255,0.08);
+      --color-shadow: 0 8px 32px 0 rgba(255,255,255,0.07);
       --color-error: #ef4444;
-
+      --glass-blur: blur(16px);
       --font-family: 'Poppins', sans-serif;
-
-      --radius: 0.75rem;
+      --radius: 1.25rem;
       --spacing-vertical: 5rem;
       --container-max-width: 1200px;
+      --glow: 0 0 16px #fff, 0 0 32px #fff2;
     }
 
     * {
@@ -31,18 +31,20 @@
     body {
       margin: 0;
       font-family: var(--font-family);
-      background-color: var(--color-bg);
+      background: linear-gradient(135deg, #0a0a0a 0%, #181a1b 100%);
       color: var(--color-primary);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       scroll-behavior: smooth;
+      min-height: 100vh;
     }
 
     h1,h2,h3,h4 {
       margin: 0 0 0.5rem 0;
       font-weight: 700;
       color: var(--color-primary);
+      text-shadow: 0 2px 16px #000a;
     }
 
     h1 {
@@ -54,6 +56,7 @@
       margin-left: auto;
       margin-right: auto;
       text-align: center;
+      animation: fadeInDown 1.2s cubic-bezier(.77,0,.18,1) both;
     }
 
     h2 {
@@ -61,7 +64,9 @@
       font-weight: 700;
       margin-bottom: 3rem;
       text-align: center;
-      color: var(--color-primary);
+      color: var(--color-accent);
+      text-shadow: 0 2px 16px #fff2;
+      animation: fadeInUp 1.2s cubic-bezier(.77,0,.18,1) both;
     }
 
     h3 {
@@ -79,16 +84,18 @@
     }
 
     a {
-      color: var(--color-primary);
+      color: var(--color-accent);
       text-decoration: none;
       border-bottom: 1px solid transparent;
-      transition: border-color 0.25s ease;
+      transition: border-color 0.25s, color 0.25s;
+      font-weight: 600;
     }
     a:hover,
     a:focus {
-      border-color: var(--color-primary);
-        outline: none;
-      }
+      border-color: var(--color-accent);
+      color: #fff;
+      outline: none;
+    }
 
     .container {
       max-width: var(--container-max-width);
@@ -101,24 +108,27 @@
     header {
       position: sticky;
       top: 0;
-      background: var(--color-bg);
+      background: rgba(10,10,10,0.95);
       z-index: 50;
-      box-shadow: 0 1px 4px var(--color-shadow);
-      border-bottom: 1px solid #e5e7eb;
+      box-shadow: var(--color-shadow);
+      border-bottom: 1px solid #222;
+      backdrop-filter: var(--glass-blur);
+      animation: fadeInDown 1.2s cubic-bezier(.77,0,.18,1) both;
     }
 
     #btn-send,
     #btn-voice,
     #btn-reset {
-      background-color: var(--color-accent);
+      background: linear-gradient(90deg, #fff 0%, #e0e0e0 100%);
       border: none;
       border-radius: var(--radius);
-      color: white;
+      color: #181a1b;
       font-weight: 700;
       font-size: 1.2rem;
       cursor: pointer;
       padding: 0 1.5rem;
-      transition: background-color 0.3s ease, transform 0.25s ease;
+      box-shadow: var(--glow);
+      transition: background 0.3s, color 0.3s, border 0.3s, transform 0.25s, box-shadow 0.3s;
       user-select: none;
       display: flex;
       align-items: center;
@@ -132,9 +142,12 @@
     #btn-voice:focus,
     #btn-reset:hover,
     #btn-reset:focus {
-      background-color: var(--color-accent-hover);
+      background: #181a1b;
+      color: #fff;
+      border: 2px solid #fff;
       outline: none;
-      transform: scale(1.05);
+      transform: scale(1.08);
+      box-shadow: 0 0 32px #fff6;
     }
 
     nav {
@@ -153,7 +166,9 @@
       cursor: default;
       user-select: none;
       letter-spacing: 0.05em;
-      color: var(--color-primary);
+      color: var(--color-accent);
+      text-shadow: 0 0 16px #fff2;
+      filter: drop-shadow(0 0 8px #fff2);
     }
 
     .nav-links {
@@ -173,7 +188,7 @@
       padding: 0.25rem 0.5rem;
       font-weight: 600;
       border-bottom: 2px solid transparent;
-      transition: border-color 0.3s ease, color 0.3s ease;
+      transition: border-color 0.3s, color 0.3s;
       font-family: var(--font-family);
       user-select: none;
     }
@@ -182,21 +197,26 @@
     .nav-links a:focus,
     .nav-links button:hover,
     .nav-links button:focus {
-      border-color: var(--color-primary);
+      border-color: var(--color-accent);
       outline: none;
-      color: var(--color-accent-hover);
+      color: var(--color-accent);
+      text-shadow: 0 0 8px #fff2;
     }
 
     main {
       padding-top: var(--spacing-vertical);
       padding-bottom: var(--spacing-vertical);
       text-align: center;
+      animation: fadeIn 1.5s cubic-bezier(.77,0,.18,1) both;
     }
 
     .hero p {
       font-weight: 400;
       margin-top: 1rem;
       margin-bottom: 0;
+      color: #e0e0e0;
+      text-shadow: 0 2px 8px #000a;
+      animation: fadeInUp 1.5s 0.2s both;
     }
 
     .btn-primary {
@@ -205,26 +225,30 @@
       font-size: 1.5rem;
       padding: 1.25rem 3rem;
       border-radius: var(--radius);
-      background-color: var(--color-accent);
-      color: #fff;
+      background: linear-gradient(90deg, #fff 0%, #e0e0e0 100%);
+      color: #181a1b;
       border: none;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.25s ease;
+      transition: background 0.3s, color 0.3s, border 0.3s, transform 0.25s, box-shadow 0.3s;
       user-select: none;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.07);
+      box-shadow: var(--glow);
       letter-spacing: 0.02em;
+      animation: fadeInUp 1.5s 0.3s both;
     }
 
     .btn-primary:hover,
     .btn-primary:focus {
-      background-color: var(--color-accent-hover);
+      background: #181a1b;
+      color: #fff;
+      border: 2px solid #fff;
       outline: none;
       transform: scale(1.06);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      box-shadow: 0 0 32px #fff6;
     }
 
     section {
       padding: 5rem 0;
+      animation: fadeInUp 1.2s cubic-bezier(.77,0,.18,1) both;
     }
 
     section#features {
@@ -236,7 +260,8 @@
       margin-bottom: 3rem;
       font-weight: 700;
       font-size: 2.25rem;
-      color: var(--color-primary);
+      color: var(--color-accent);
+      text-shadow: 0 2px 16px #fff2;
     }
 
     .features {
@@ -251,40 +276,46 @@
     .card {
       background: var(--color-card-bg);
       border-radius: var(--radius);
-      box-shadow: 0 6px 12px var(--color-shadow);
+      box-shadow: var(--color-shadow);
       padding: 2.25rem 2rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      transition: box-shadow 0.3s, transform 0.3s, background 0.3s;
       cursor: default;
       outline-offset: 4px;
+      backdrop-filter: var(--glass-blur);
+      border: 1.5px solid #222;
+      animation: fadeInCard 1.2s cubic-bezier(.77,0,.18,1) both;
     }
 
     .card:hover,
     .card:focus-within {
-      box-shadow: 0 14px 30px rgba(0,0,0,0.15);
-      transform: translateY(-8px);
+      box-shadow: 0 14px 40px #fff2;
+      transform: translateY(-8px) scale(1.03);
       outline: none;
+      background: rgba(255,255,255,0.13);
     }
 
     .card-icon {
       width: 48px;
       height: 48px;
-      color: var(--color-primary);
+      color: var(--color-accent);
       user-select: none;
       fill: none;
-      stroke: var(--color-primary);
+      stroke: var(--color-accent);
       stroke-width: 2;
+      filter: drop-shadow(0 0 8px #fff2);
     }
 
     .card h3 {
       font-weight: 700;
-      color: var(--color-primary);
+      color: var(--color-accent);
       margin-top: 0;
       margin-bottom: 0.5rem;
       font-size: 1.375rem;
       line-height: 1.2;
+      text-shadow: 0 2px 8px #fff2;
     }
 
     .card p {
@@ -301,8 +332,11 @@
       background: var(--color-card-bg);
       padding: 2rem;
       border-radius: var(--radius);
-      box-shadow: 0 6px 15px var(--color-shadow);
+      box-shadow: var(--color-shadow);
       text-align: center;
+      backdrop-filter: var(--glass-blur);
+      border: 1.5px solid #222;
+      animation: fadeInCard 1.2s cubic-bezier(.77,0,.18,1) both;
     }
 
     #scanner p {
@@ -316,8 +350,10 @@
       border-radius: var(--radius);
       padding: 0.9rem 1.25rem;
       font-size: 1.125rem;
-      border: 1px solid #d1d5db;
-      transition: border-color 0.3s ease;
+      border: 1px solid #333;
+      background: rgba(20,20,20,0.7);
+      color: var(--color-primary);
+      transition: border-color 0.3s, background 0.3s;
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
@@ -326,16 +362,18 @@
     #scanner input[type="file"]:focus {
       outline: none;
       border-color: var(--color-accent);
-      box-shadow: 0 0 0 4px rgba(0,0,0,0.12);
+      box-shadow: 0 0 0 4px #fff2;
+      background: rgba(30,30,30,0.9);
     }
 
     .diagnosis-result {
       margin-top: 1.5rem;
-      color: var(--color-primary);
+      color: var(--color-accent);
       font-weight: 700;
       min-height: 3rem;
       user-select: text;
       font-size: 1.125rem;
+      text-shadow: 0 2px 8px #fff2;
     }
 
     #dashboards {
@@ -359,7 +397,7 @@
       font-weight: 600;
       padding: 0.75rem 1.5rem;
       cursor: pointer;
-      transition: border-color 0.3s ease, color 0.3s ease;
+      transition: border-color 0.3s, color 0.3s;
       font-family: var(--font-family);
       color: var(--color-secondary);
       user-select: none;
@@ -374,11 +412,13 @@
       background: var(--color-card-bg);
       border-radius: var(--radius);
       padding: 2rem;
-      box-shadow: 0 6px 10px var(--color-shadow);
+      box-shadow: var(--color-shadow);
       min-height: 280px;
       font-weight: 600;
       color: var(--color-primary);
       outline-offset: 4px;
+      backdrop-filter: var(--glass-blur);
+      border: 1.5px solid #222;
     }
 
     .dashboard-list {
@@ -388,7 +428,7 @@
     }
 
     .dashboard-list li {
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid #222;
       padding: 0.75rem 0;
       display: flex;
       justify-content: space-between;
@@ -410,9 +450,12 @@
       padding: 2rem;
       background: var(--color-card-bg);
       border-radius: var(--radius);
-      box-shadow: 0 6px 20px var(--color-shadow);
+      box-shadow: var(--color-shadow);
       text-align: center;
       color: var(--color-primary);
+      backdrop-filter: var(--glass-blur);
+      border: 1.5px solid #222;
+      animation: fadeInCard 1.2s cubic-bezier(.77,0,.18,1) both;
     }
 
     footer {
@@ -421,7 +464,9 @@
       font-size: 0.875rem;
       color: var(--color-secondary);
       user-select: none;
-      border-top: 1px solid #e5e7eb;
+      border-top: 1px solid #222;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: var(--glass-blur);
     }
 
     @media (max-width: 640px) {
@@ -458,25 +503,29 @@
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.35);
+      background: rgba(0,0,0,0.55);
       display: none;
       justify-content: center;
       align-items: center;
       padding: 1rem;
       z-index: 10000;
+      animation: fadeIn 0.7s cubic-bezier(.77,0,.18,1) both;
     }
     .modal.active {
       display: flex;
     }
     .modal-content {
-      background: var(--color-bg);
+      background: var(--color-card-bg);
       border-radius: var(--radius);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+      box-shadow: var(--color-shadow);
       max-width: 400px;
       width: 100%;
       padding: 2.5rem 2rem;
       position: relative;
       user-select: none;
+      backdrop-filter: var(--glass-blur);
+      border: 1.5px solid #222;
+      animation: fadeInUp 1.2s cubic-bezier(.77,0,.18,1) both;
     }
     .modal-close {
       position: absolute;
@@ -489,11 +538,11 @@
       color: var(--color-secondary);
       font-weight: 700;
       user-select: none;
-      transition: color 0.3s ease;
+      transition: color 0.3s;
     }
     .modal-close:hover,
     .modal-close:focus {
-      color: var(--color-primary);
+      color: var(--color-accent);
       outline: none;
     }
     form label {
@@ -510,10 +559,12 @@
       padding: 0.5rem 0.75rem;
       font-family: var(--font-family);
       font-size: 1rem;
-      border: 1.5px solid #d1d5db;
+      border: 1.5px solid #333;
       border-radius: var(--radius);
       margin-bottom: 1rem;
-      transition: border-color 0.3s ease;
+      background: rgba(20,20,20,0.7);
+      color: var(--color-primary);
+      transition: border-color 0.3s, background 0.3s;
       user-select: text;
     }
     form input[type="text"]:focus,
@@ -521,7 +572,8 @@
     form select:focus {
       outline: none;
       border-color: var(--color-accent);
-      box-shadow: 0 0 0 3px rgba(0,0,0,0.07);
+      box-shadow: 0 0 0 3px #fff2;
+      background: rgba(30,30,30,0.9);
     }
     .form-error {
       color: var(--color-error);
@@ -532,23 +584,27 @@
       user-select: text;
     }
     form button[type="submit"] {
-      background: var(--color-accent);
+      background: linear-gradient(90deg, #fff 0%, #e0e0e0 100%);
       border: none;
       border-radius: var(--radius);
       padding: 0.75rem;
       font-weight: 700;
       font-size: 1.125rem;
-      color: white;
+      color: #181a1b;
       cursor: pointer;
       user-select: none;
-      transition: background-color 0.3s ease, transform 0.25s ease;
+      transition: background 0.3s, color 0.3s, border 0.3s, transform 0.25s, box-shadow 0.3s;
       width: 100%;
+      box-shadow: var(--glow);
     }
     form button[type="submit"]:hover,
     form button[type="submit"]:focus {
-      background: var(--color-accent-hover);
+      background: #181a1b;
+      color: #fff;
+      border: 2px solid #fff;
       outline: none;
       transform: scale(1.05);
+      box-shadow: 0 0 32px #fff6;
     }
     .form-toggle {
       margin-top: 1rem;
@@ -593,7 +649,7 @@
       font-weight: 700;
       padding: 0.5rem 1.5rem;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      transition: background 0.3s, transform 0.3s;
       user-select: none;
     }
     .btn-logout:hover,
@@ -616,7 +672,8 @@
       font-weight: 800;
       font-size: 2.75rem;
       margin-bottom: 3rem;
-      color: var(--color-primary);
+      color: var(--color-accent);
+      text-shadow: 0 2px 16px #fff2;
     }
 
     .ai-doctor-grid {
@@ -628,37 +685,42 @@
     .ai-doctor-card {
       background: var(--color-card-bg);
       border-radius: var(--radius);
-      box-shadow: 0 6px 12px var(--color-shadow);
+      box-shadow: var(--color-shadow);
       padding: 2.25rem 2rem;
       outline-offset: 4px;
       cursor: default;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      transition: box-shadow 0.3s, transform 0.3s, background 0.3s;
+      backdrop-filter: var(--glass-blur);
+      border: 1.5px solid #222;
+      animation: fadeInCard 1.2s cubic-bezier(.77,0,.18,1) both;
     }
     .ai-doctor-card:hover,
     .ai-doctor-card:focus-within {
-      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-      transform: translateY(-8px);
+      box-shadow: 0 12px 40px #fff2;
+      transform: translateY(-8px) scale(1.03);
       outline: none;
+      background: rgba(255,255,255,0.13);
     }
 
     .ai-doctor-icon {
       width: 48px;
       height: 48px;
-      color: var(--color-primary);
+      color: var(--color-accent);
       margin-bottom: 1rem;
       user-select: none;
       fill: none;
-      stroke: var(--color-primary);
+      stroke: var(--color-accent);
       stroke-width: 2;
+      filter: drop-shadow(0 0 8px #fff2);
     }
 
     .ai-doctor-icon svg {
       width: 48px;
       height: 48px;
-      stroke: var(--color-primary);
+      stroke: var(--color-accent);
       stroke-width: 2;
       fill: none;
     }
@@ -667,7 +729,8 @@
       font-weight: 800;
       font-size: 1.75rem;
       margin-bottom: 1rem;
-      color: var(--color-primary);
+      color: var(--color-accent);
+      text-shadow: 0 2px 8px #fff2;
     }
 
     .ai-doctor-card p {
@@ -684,29 +747,33 @@
       margin: 4rem auto 3rem auto;
       border-radius: var(--radius);
       padding: 2rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: var(--color-shadow);
       display: flex;
       flex-direction: column;
+      backdrop-filter: var(--glass-blur);
+      border: 1.5px solid #222;
+      animation: fadeInCard 1.2s cubic-bezier(.77,0,.18,1) both;
     }
     #ai-chatbox h2 {
       font-weight: 800;
       font-size: 2.75rem;
-      color: var(--color-primary);
+      color: var(--color-accent);
       margin-bottom: 1.5rem;
       text-align: center;
+      text-shadow: 0 2px 16px #fff2;
     }
     #doctor-select {
       max-width: 400px;
       margin: 0 auto 1.75rem auto;
       font-size: 1.125rem;
       font-weight: 600;
-      background: var(--color-bg);
+      background: rgba(20,20,20,0.7);
       border: 2px solid var(--color-accent);
       border-radius: var(--radius);
       padding: 0.5rem 1rem;
       cursor: pointer;
       user-select: none;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s, background 0.3s;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
@@ -716,14 +783,17 @@
     #doctor-select:focus {
       outline: none;
       border-color: var(--color-accent-hover);
-      box-shadow: 0 0 6px rgba(0,0,0,0.15);
+      box-shadow: 0 0 6px #fff2;
+      background: rgba(30,30,30,0.9);
     }
     #doctor-select option {
       font-weight: 400;
+      background: #181a1b;
+      color: var(--color-primary);
     }
     #chat-window {
-      background: #fff;
-      border: 1.5px solid #ddd;
+      background: rgba(20,20,20,0.7);
+      border: 1.5px solid #222;
       border-radius: var(--radius);
       height: 360px;
         max-width: 700px;
@@ -735,6 +805,8 @@
       gap: 0.75rem;
       user-select: none;
       scroll-behavior: smooth;
+      box-shadow: 0 2px 12px #fff1;
+      animation: fadeInCard 1.2s cubic-bezier(.77,0,.18,1) both;
     }
     .chat-message {
       max-width: 80%;
@@ -745,26 +817,32 @@
       word-wrap: break-word;
       white-space: pre-wrap;
       user-select: text;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      box-shadow: 0 2px 5px #fff1;
       opacity: 0.85;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s, background 0.3s;
+      background: rgba(30,30,30,0.7);
+      color: var(--color-primary);
+      border: 1px solid #222;
+      animation: fadeInUp 0.7s cubic-bezier(.77,0,.18,1) both;
     }
     .chat-message:hover {
       opacity: 1;
+      background: rgba(40,40,40,0.9);
     }
     .chat-message.user {
       align-self: flex-end;
-      background-color: var(--color-accent);
-      color: #fff;
+      background: linear-gradient(90deg, #fff 0%, #e0e0e0 100%);
+      color: #181a1b;
       border-top-right-radius: 0;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px #fff2;
     }
     .chat-message.doctor {
       align-self: flex-start;
-      background-color: var(--color-card-bg);
-      color: var(--color-primary);
+      background: rgba(30,30,30,0.7);
+      color: var(--color-accent);
       border-top-left-radius: 0;
       font-weight: 600;
+      text-shadow: 0 2px 8px #fff2;
     }
     #chat-input-container {
       max-width: 700px;
@@ -775,30 +853,34 @@
     #chat-input {
       flex-grow: 1;
       font-size: 1.125rem;
-      border: 1.5px solid #ddd;
+      border: 1.5px solid #333;
       border-radius: var(--radius);
       padding: 0.75rem 1rem;
       font-family: var(--font-family);
       resize: none;
       min-height: 48px;
       max-height: 96px;
-      transition: border-color 0.3s ease;
+      background: rgba(20,20,20,0.7);
+      color: var(--color-primary);
+      transition: border-color 0.3s, background 0.3s;
     }
     #chat-input:focus {
       outline: none;
       border-color: var(--color-accent);
-      box-shadow: 0 0 6px rgba(0,0,0,0.15);
+      box-shadow: 0 0 6px #fff2;
+      background: rgba(30,30,30,0.9);
     }
-    #btn-send, #btn-voice #btn-reset {
-      background-color: var(--color-accent);
+    #btn-send, #btn-voice, #btn-reset {
+      background: linear-gradient(90deg, #fff 0%, #e0e0e0 100%);
       border: none;
       border-radius: var(--radius);
-      color: white;
+      color: #181a1b;
       font-weight: 700;
       font-size: 1.2rem;
       cursor: pointer;
       padding: 0 1.5rem;
-      transition: background-color 0.3s ease, transform 0.25s ease;
+      box-shadow: var(--glow);
+      transition: background 0.3s, color 0.3s, border 0.3s, transform 0.25s, box-shadow 0.3s;
       user-select: none;
       display: flex;
       align-items: center;
@@ -809,22 +891,42 @@
     #btn-send:focus,
     #btn-voice:hover,
     #btn-reset:hover {
-      background-color: var(--color-accent-hover);
+      background: #181a1b;
+      color: #fff;
+      border: 2px solid #fff;
       outline: none;
       transform: scale(1.05);
+      box-shadow: 0 0 32px #fff6;
     }
     #chat-window::-webkit-scrollbar {
       width: 10px;
     }
     #chat-window::-webkit-scrollbar-thumb {
-      background: #cbd5e0;
+      background: #222;
       border-radius: 5px;
     }
     #chat-window::-webkit-scrollbar-track {
-      background: #f9fafb;
+      background: #181a1b;
       border-radius: 5px;
     }
 
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: none; }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: none; }
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-40px); }
+      100% { opacity: 1; transform: none; }
+    }
+    @keyframes fadeInCard {
+      0% { opacity: 0; transform: scale(0.95) translateY(40px); }
+      100% { opacity: 1; transform: none; }
+    }
   </style>
 </head>
 <body>
@@ -1037,7 +1139,6 @@
         <option value="">Select role</option>
         <option value="doctor">Doctor</option>
         <option value="patient">Patient</option>
-        <option value="admin">Admin</option>
       </select>
 
       <div id="doctorProofContainer" style="display: none;">
