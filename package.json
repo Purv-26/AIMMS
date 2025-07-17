@@ -1,12 +1,16 @@
 {
   "name": "aimms-1",
   "version": "1.0.0",
-  "description": "AIMMS-1 project for Netlify deployment.",
+  "description": "AIMMS - AI Medical Multi-Solution Software",
   "main": "AIMMS.html",
   "scripts": {
-    "start": "echo 'No build step defined.'"
-    "build": "your build command here"
+    "build": "echo 'Static site - no build required'",
+    "start": "echo 'Static site - serve AIMMS.html'"
   },
+  "keywords": ["medical", "ai", "healthcare", "static-site"],
   "author": "",
-  "license": "MIT"
-} 
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
