@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" >
 <head>
+  <link rel="stylesheet" hres="Main.html">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>AIMMS - AI Medical Multi-Solution Software</title>
@@ -220,6 +221,7 @@
     }
 
     .nav-links {
+      display: flex;
       gap: 2rem;
       font-weight: 600;
       font-size: 1rem;
@@ -551,45 +553,30 @@
       }
     }
     @media (max-width: 640px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+      h2 {
+        font-size: 1rem;
+      }
+      .btn-primary {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.8rem 0;
+        margin-top: 1.2rem;
+      }
       nav {
-        flex-direction: row;
+        flex-direction: column;
         height: auto;
         padding: 0.5rem 0.2rem;
-        align-items: center;
-        position: relative;
-        z-index: 3000;
-      }
-      #hamburger {
-        display: flex !important;
-        z-index: 4000 !important;
       }
       .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(10,10,10,0.98);
         flex-direction: column;
         align-items: center;
         gap: 1.2rem;
-        width: 100vw;
-        margin: 0;
-        padding: calc(1.2rem + env(safe-area-inset-top, 0px)) 0 1.2rem 0;
-        box-shadow: 0 8px 24px #000a;
-        border-bottom-left-radius: 1rem;
-        border-bottom-right-radius: 1rem;
-        z-index: 3000 !important;
-        transition: max-height 0.3s, opacity 0.3s;
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-        pointer-events: none;
-      }
-      .nav-links.open {
-        display: flex !important;
-        max-height: 400px;
-        opacity: 1;
-        pointer-events: auto;
+        width: 100%;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
       }
       .nav-links a, .nav-links button {
         font-size: 1.2rem;
@@ -599,35 +586,31 @@
         border-radius: 0.5rem;
       }
       .logo {
-        margin-bottom: 0;
+        margin-bottom: 0.5rem;
         font-size: 1.3rem;
-      }
-      header {
-        padding-top: env(safe-area-inset-top, 0px);
       }
       #ai-chatbox {
         padding: 0.5rem 0.2rem;
       }
       #chat-window {
-        height: 120px;
+        height: 160px;
         font-size: 0.95rem;
-        padding: 0.2rem;
+        padding: 0.3rem;
       }
       #chat-input-container {
         flex-direction: column;
-        gap: 0.2rem;
+        gap: 0.3rem;
       }
       #chat-input {
         font-size: 0.95rem;
         min-height: 36px;
-        padding: 0.3rem 0.5rem;
+        padding: 0.4rem 0.5rem;
       }
       #btn-send, #btn-voice, #btn-reset {
-        min-width: 44px;
-        min-height: 44px;
+        width: 100%;
         font-size: 1rem;
-        padding: 0.2rem 0;
-        margin: 0;
+        height: 40px;
+        padding: 0;
       }
       #scanner {
         padding: 0.5rem 0.2rem;
@@ -1138,16 +1121,54 @@
       transition: all 0.3s;
       display: block;
     }
-    @media (min-width: 641px) {
-      .nav-links {
-        display: flex !important;
-        position: static !important;
-        max-height: none !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
+    @media (max-width: 640px) {
+      nav {
+        flex-direction: row;
+        height: auto;
+        padding: 0.5rem 0.2rem;
+        align-items: center;
+        position: relative;
       }
       #hamburger {
-        display: none !important;
+        display: flex;
+      }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(10,10,10,0.98);
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+        width: 100vw;
+        margin: 0;
+        padding: 1.2rem 0 1.2rem 0;
+        box-shadow: 0 8px 24px #000a;
+        border-bottom-left-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        z-index: 1000;
+        transition: max-height 0.3s, opacity 0.3s;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .nav-links.open {
+        max-height: 400px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-links a, .nav-links button {
+        font-size: 1.2rem;
+        padding: 0.8rem 0;
+        width: 100%;
+        text-align: center;
+        border-radius: 0.5rem;
+      }
+      .logo {
+        margin-bottom: 0;
+        font-size: 1.3rem;
       }
     }
   </style>
@@ -1166,6 +1187,10 @@
         <a href="#ai-doctors" tabindex="0">AI Doctors</a>
         <a href="#about-creator" tabindex="0">About Creator</a>
         <button id="btnLogin" aria-haspopup="dialog" aria-controls="loginModal" aria-expanded="false" type="button">Login / Signup</button>
+      </div>
+      <div class="nav-links" id="navLinksLoggedIn" style="display:none;">
+        <span id="navUserRole" aria-live="polite"></span>
+        <button id="btnLogout" type="button">Logout</button>
       </div>
     </nav>
   </header>
@@ -1335,7 +1360,7 @@
         Team Codex is committed to delivering innovative, secure, and reliable solutions that empower healthcare professionals and patients alike, ensuring privacy, accuracy, and efficiency at every step.
         </p>
       </div>
-       </section>
+      </section>
     </div>
     
   </main>
@@ -1581,64 +1606,143 @@
     let userName = null;
     let awaitingName = false;
 
+    const aiDoctorResponses = {
+      "General Physician": ["Hi! I'm your General Physician AI. How can I assist you today?"],
+      "Radiologist": ["Radiologist AI here. Need help understanding any scan or report?"],
+      "Cardiologist": ["Hello, Cardiologist AI online. Tell me your heart concerns."],
+      "Oncologist": ["Hi, I'm your AI Oncologist. Need help with a diagnosis or test?"],
+      "Neurologist": ["Hello, this is Neurologist AI. Feeling dizziness or headaches?"],
+      "Pediatrician": ["Hey! Pediatrician AI here. Is your child feeling unwell?"],
+      "Dermatologist": ["Hi! Dermatologist AI reporting. Skin rashes or acne issues?"],
+      "Psychiatrist": ["Welcome! Psychiatrist AI at your service. Want to talk?"]
+    };
+
     function appendMessage(sender, message) {
       const msgDiv = document.createElement('div');
       msgDiv.className = `chat-message ${sender}`;
-      if (sender === 'doctor') {
-        msgDiv.innerHTML = message;
-      } else {
-        msgDiv.textContent = message;
-      }
+      msgDiv.textContent = message;
       chatWindow.appendChild(msgDiv);
       chatWindow.scrollTop = chatWindow.scrollHeight;
     }
 
-    function showTypingIndicator() {
+    function simulateTyping(message, callback) {
       const typingDiv = document.createElement('div');
       typingDiv.className = 'chat-message doctor';
-      typingDiv.textContent = 'Doctor is typing...';
-      typingDiv.id = 'typing-indicator';
+      typingDiv.textContent = 'Typing...';
       chatWindow.appendChild(typingDiv);
       chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      setTimeout(() => {
+        typingDiv.remove();
+        appendMessage('doctor', message);
+        callback();
+        speak(message); // AI speaks back
+      }, 1000 + Math.random() * 600);
     }
-    function removeTypingIndicator() {
-      const typingDiv = document.getElementById('typing-indicator');
-      if (typingDiv) typingDiv.remove();
+function appendMessage(sender, message) {
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `chat-message ${sender}`;
+
+  if (sender === 'doctor') {
+    msgDiv.innerHTML = message; // ✅ Renders HTML like <a>
+  } else {
+    msgDiv.textContent = message; // ✅ For user messages, keep as plain text
+  }
+
+  chatWindow.appendChild(msgDiv);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-IN';
+      speechSynthesis.speak(utterance);
     }
 
-    async function sendToAIChat(messages) {
-      try {
-        const response = await fetch('http://localhost:3000/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages })
-        });
-        if (!response.ok) throw new Error('AI service error');
-        const data = await response.json();
-        return data.reply;
-      } catch (err) {
-        return null;
+    function generateAIReply(userMessage) {
+      const doctor = doctorSelect.value;
+      const baseReplies = aiDoctorResponses[doctor];
+      const msg = userMessage.toLowerCase();
+
+      if (!userName && (msg === "hi" || msg === "hii" || msg === "hello")) {
+        awaitingName = true;
+        return "Hi there! What's your name?";
       }
+
+      if (awaitingName && !userName) {
+        userName = userMessage.trim();
+        awaitingName = false;
+        return `Nice to meet you, ${userName}! How can I assist you today?`;
+      }
+
+      if (msg.includes("thank you") || msg.includes("thanks") || msg === "thankyou") {
+        return "You're welcome! 😊 Let me know if you need anything else.";
+      }
+
+      if (msg.includes("schedule") || msg.includes("appointment") || msg.includes("timing")) {
+        return "Doctor is available Monday to Saturday, 9:00 AM – 5:00 PM. Please call the reception or book online.";
+      }
+
+      if (msg.includes("medicine")) {
+        return "Please describe your symptoms so I can suggest appropriate medicine (e.g., fever, headache, cold, etc).";
+      }
+
+      if (msg.includes("fever") || msg.includes("temperature")) {
+        return doctor === "Pediatrician"
+          ? "Use Paracetamol Syrup based on weight. Monitor the child and keep hydrated."
+          : "Take Paracetamol 500mg every 6 hours. Stay hydrated. Visit a doctor if fever persists.";
+      }
+
+      if (msg.includes("headache") || msg.includes("head pain") || msg.includes("migraine")) {
+        return doctor === "Neurologist"
+          ? "For migraines, consult a neurologist and consider Sumatriptan. Rest in a dark, quiet room."
+          : "You can take Paracetamol or Ibuprofen for headache. Avoid stress and stay hydrated.";
+      }
+
+      if (msg.includes("cold") || msg.includes("runny nose") || msg.includes("congestion")) {
+        return "Use Cetirizine for cold. Try steam inhalation and warm fluids for relief.";
+      }
+
+      if (msg.includes("cough") && msg.includes("fever")) {
+        return "Possible viral infection. Take Paracetamol and cough syrup (like Benadryl). Rest well.";
+      }
+
+      if (msg.includes("vomiting") || msg.includes("nausea")) {
+        return "Use Ondansetron or Domperidone. Hydrate with ORS. If severe, consult a doctor.";
+      }
+
+      if (msg.includes("stomach pain") || msg.includes("abdominal pain") || msg.includes("gas")) {
+        return "Take antacids like Gelusil or Dicyclomine. Avoid spicy food. See a doctor if pain continues.";
+      }
+      if (msg.includes("book") || msg.includes("appointment form")) {
+  return `You can book an appointment using this form: <a href="bookappoform.html" target="_blank">Click here to book</a>`;
+}
+
+      if (msg.startsWith("#")) {
+        if (msg === "#help") return "Commands: #symptoms, #advice, #reset";
+        if (msg === "#symptoms") return "List symptoms like 'fever, cough, headache'.";
+        if (msg === "#advice") return "Drink water, rest well, and eat healthy. Avoid stress.";
+        return "Unknown command. Use #help to list commands.";
+      }
+
+      return messageCount === 0 ? baseReplies[0] : baseReplies[Math.floor(Math.random() * baseReplies.length)];
     }
 
-    btnSend.addEventListener('click', async () => {
+    btnSend.addEventListener('click', () => {
       const userMsg = chatInput.value.trim();
       if (!userMsg) return;
       appendMessage('user', userMsg);
-      chatHistory.push({ role: 'user', content: userMsg });
+      chatHistory.push({sender:'user', message: userMsg});
       chatInput.value = '';
       btnSend.disabled = true;
-      showTypingIndicator();
-      // Send to backend AI
-      let aiMsg = await sendToAIChat(chatHistory);
-      removeTypingIndicator();
-      if (!aiMsg) {
-        aiMsg = "Sorry, I'm having trouble connecting to the AI service. Please try again later.";
-      } else {
-        chatHistory.push({ role: 'assistant', content: aiMsg });
-      }
-      appendMessage('doctor', aiMsg);
-      btnSend.disabled = false;
+
+      // Simulate AI thinking delay
+      setTimeout(() => {
+        const aiMsg = generateAIReply(userMsg);
+        appendMessage('doctor', aiMsg);
+        chatHistory.push({sender:'doctor', message: aiMsg});
+        btnSend.disabled = false;
+      }, 1200);
     });
 
     // Also allow sending message with Enter key (without shift)
@@ -1756,55 +1860,17 @@ if ('webkitSpeechRecognition' in window) {
   // Hamburger menu toggle for mobile
   const hamburger = document.getElementById('hamburger');
   const navLinksPublic = document.getElementById('navLinksPublic');
-  const body = document.body;
-
-  function openMenu() {
-    if (window.innerWidth <= 640) {
-      navLinksPublic.classList.add('open');
-      hamburger.setAttribute('aria-expanded', 'true');
-      body.style.overflow = 'hidden';
-    }
-  }
-  function closeMenu() {
-    if (window.innerWidth <= 640) {
-      navLinksPublic.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      body.style.overflow = '';
-    }
-  }
-  function toggleMenu(e) {
-    e.stopPropagation();
-    if (window.innerWidth > 640) return;
-    if (navLinksPublic.classList.contains('open')) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  }
-
   if (hamburger && navLinksPublic) {
-    hamburger.addEventListener('click', toggleMenu);
-
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinksPublic.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    // Close menu when a link is clicked (for better UX)
     navLinksPublic.querySelectorAll('a,button').forEach(el => {
       el.addEventListener('click', () => {
-        closeMenu();
+        navLinksPublic.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
       });
-    });
-
-    document.addEventListener('click', (e) => {
-      if (
-        navLinksPublic.classList.contains('open') &&
-        !navLinksPublic.contains(e.target) &&
-        e.target !== hamburger
-      ) {
-        closeMenu();
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 640) {
-        closeMenu();
-      }
     });
   }
 
