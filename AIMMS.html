@@ -638,11 +638,10 @@
         font-size: 1.3rem;
       }
       #navClose {
-        display: none;
         position: fixed;
         top: 1.2rem;
         right: 1.2rem;
-        z-index: 2100;
+        z-index: 3000;
         background: none;
         border: none;
         color: #fff;
@@ -653,8 +652,9 @@
         justify-content: center;
         cursor: pointer;
         outline: none;
+        display: none;
       }
-      #navClose.visible {
+      .nav-links.open #navClose {
         display: flex;
       }
       #chat-input-container {
@@ -1231,11 +1231,10 @@
         font-size: 1.3rem;
       }
       #navClose {
-        display: none;
         position: fixed;
         top: 1.2rem;
         right: 1.2rem;
-        z-index: 2100;
+        z-index: 3000;
         background: none;
         border: none;
         color: #fff;
@@ -1246,8 +1245,9 @@
         justify-content: center;
         cursor: pointer;
         outline: none;
+        display: none;
       }
-      #navClose.visible {
+      .nav-links.open #navClose {
         display: flex;
       }
       #chat-input-container {
@@ -1278,10 +1278,13 @@
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
       </button>
-      <button id="navClose" aria-label="Close navigation menu" type="button" style="display:none;">
+      <button id="navClose" aria-label="Close navigation menu" type="button">
         <span style="font-size:2.2rem;line-height:1;">&times;</span>
       </button>
       <div class="nav-links" id="navLinksPublic">
+        <button id="navClose" aria-label="Close navigation menu" type="button">
+          <span style="font-size:2.2rem;line-height:1;">&times;</span>
+        </button>
         <a href="#features" tabindex="0">Features</a>
         <a href="#ai-doctors" tabindex="0">AI Doctors</a>
         <a href="#about-creator" tabindex="0">About Creator</a>
@@ -1964,25 +1967,20 @@ if ('webkitSpeechRecognition' in window) {
     hamburger.addEventListener('click', () => {
       const isOpen = navLinksPublic.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      if (isOpen && window.innerWidth <= 640) {
-        navClose.classList.add('visible');
-      } else {
-        navClose.classList.remove('visible');
-      }
     });
     // Close menu when a link is clicked (for better UX)
     navLinksPublic.querySelectorAll('a,button').forEach(el => {
-      el.addEventListener('click', () => {
-        navLinksPublic.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        navClose.classList.remove('visible');
-      });
+      if (el !== navClose) {
+        el.addEventListener('click', () => {
+          navLinksPublic.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      }
     });
     if (navClose) {
       navClose.addEventListener('click', () => {
         navLinksPublic.classList.remove('open');
         hamburger.setAttribute('aria-expanded', 'false');
-        navClose.classList.remove('visible');
       });
     }
   }
