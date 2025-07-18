@@ -199,6 +199,47 @@
       box-shadow: 0 0 32px #fff6;
     }
 
+    /* Global mobile-friendly button styles */
+    button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      border: none;
+      outline: none;
+      font-family: var(--font-family);
+      box-sizing: border-box;
+    }
+
+    /* Ensure minimum touch target size for all buttons */
+    button, .btn-primary, #btn-send, #btn-voice, #btn-reset, form button[type="submit"], .btn-logout, .modal-close, .nav-links button {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* iOS Safari specific fixes */
+    @supports (-webkit-touch-callout: none) {
+      button, .btn-primary, #btn-send, #btn-voice, #btn-reset, form button[type="submit"], .btn-logout, .modal-close {
+        -webkit-appearance: none;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+    }
+
+    /* Android Chrome specific fixes */
+    @supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
+      button, .btn-primary, #btn-send, #btn-voice, #btn-reset, form button[type="submit"], .btn-logout, .modal-close {
+        -webkit-appearance: none;
+        border-radius: 8px;
+      }
+    }
+
     nav {
       max-width: var(--container-max-width);
       margin: 0 auto;
@@ -569,6 +610,11 @@
         transition: box-shadow 0.2s;
         position: static;
         margin-left: 1rem;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        min-height: 44px;
+        min-width: 44px;
+        padding: 8px;
       }
       #hamburger:focus, #hamburger:active, #hamburger:hover {
         outline: none !important;
@@ -615,6 +661,12 @@
         outline: none;
         box-shadow: none;
         transition: background 0.2s, color 0.2s;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .nav-links a:focus, .nav-links button:focus {
         outline: none;
@@ -624,6 +676,116 @@
       .logo {
         margin-bottom: 0;
         font-size: 1.3rem;
+      }
+      
+      /* Mobile-specific button styles */
+      button, .btn-primary, #btn-send, #btn-voice, #btn-reset, form button[type="submit"], .btn-logout, .modal-close {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 16px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: 600;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      button:active, .btn-primary:active, #btn-send:active, #btn-voice:active, #btn-reset:active, form button[type="submit"]:active, .btn-logout:active, .modal-close:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+      }
+      
+      button:focus, .btn-primary:focus, #btn-send:focus, #btn-voice:focus, #btn-reset:focus, form button[type="submit"]:focus, .btn-logout:focus, .modal-close:focus {
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+      }
+      
+      /* Specific button styles for mobile */
+      .btn-primary {
+        font-size: 18px;
+        padding: 16px 24px;
+        min-height: 56px;
+        width: 100%;
+        max-width: 300px;
+        margin: 2rem auto 0 auto;
+      }
+      
+      #btn-send, #btn-voice, #btn-reset {
+        font-size: 14px;
+        padding: 12px 16px;
+        min-height: 48px;
+        flex: 1;
+        margin: 0 4px;
+      }
+      
+      form button[type="submit"] {
+        font-size: 16px;
+        padding: 14px 20px;
+        min-height: 52px;
+        width: 100%;
+        margin-top: 1rem;
+      }
+      
+      .btn-logout {
+        font-size: 14px;
+        padding: 10px 16px;
+        min-height: 44px;
+      }
+      
+      .modal-close {
+        font-size: 24px;
+        padding: 8px;
+        min-height: 44px;
+        min-width: 44px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.1);
+      }
+      
+      /* Disable hover effects on touch devices */
+      @media (hover: none) and (pointer: coarse) {
+        button:hover, .btn-primary:hover, #btn-send:hover, #btn-voice:hover, #btn-reset:hover, form button[type="submit"]:hover, .btn-logout:hover, .modal-close:hover {
+          transform: none;
+          box-shadow: none;
+        }
+      }
+      
+      /* Ensure proper spacing for button groups */
+      #chat-input-container {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      
+      /* Fix for iOS Safari button styling */
+      @supports (-webkit-touch-callout: none) {
+        button, .btn-primary, #btn-send, #btn-voice, #btn-reset, form button[type="submit"], .btn-logout, .modal-close {
+          -webkit-appearance: none;
+          border-radius: 8px;
+          font-size: 16px;
+        }
       }
     }
     @media (max-width: 480px) {
@@ -1108,80 +1270,6 @@
       border-radius: 2px;
       transition: all 0.3s;
       display: block;
-    }
-    @media (max-width: 640px) {
-      nav {
-        flex-direction: row;
-        height: auto;
-        padding: 0.5rem 0.2rem;
-        align-items: center;
-        position: relative;
-      }
-      #hamburger {
-        display: flex;
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        background: none;
-        transition: box-shadow 0.2s;
-        position: static;
-        margin-left: 1rem;
-      }
-      #hamburger:focus, #hamburger:active, #hamburger:hover {
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        background: none;
-      }
-      .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        width: 100vw;
-        background: rgba(10,10,10,0.98);
-        flex-direction: column;
-        align-items: center;
-        gap: 1.2rem;
-        margin: 0;
-        padding: 1.2rem 0 1.2rem 0;
-        box-shadow: 0 8px 24px #000a;
-        border-bottom-left-radius: 1rem;
-        border-bottom-right-radius: 1rem;
-        z-index: 1000;
-        transition: max-height 0.4s cubic-bezier(.77,0,.18,1), opacity 0.3s, transform 0.4s cubic-bezier(.77,0,.18,1);
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-        pointer-events: none;
-        transform: translateY(-16px) scaleY(0.98);
-      }
-      .nav-links.open {
-        max-height: 400px;
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0) scaleY(1);
-      }
-      .nav-links a, .nav-links button {
-        font-size: 1.2rem;
-        padding: 0.8rem 0;
-        width: 100%;
-        text-align: center;
-        border-radius: 0.5rem;
-        border: none;
-        outline: none;
-        box-shadow: none;
-        transition: background 0.2s, color 0.2s;
-      }
-      .nav-links a:focus, .nav-links button:focus {
-        outline: none;
-        background: rgba(255,255,255,0.08);
-        color: #fff;
-      }
-      .logo {
-        margin-bottom: 0;
-        font-size: 1.3rem;
-      }
     }
   </style>
 </head>
