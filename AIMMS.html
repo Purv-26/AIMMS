@@ -1307,7 +1307,7 @@
       <section class="hero" id="hero" aria-label="Hero introduction">
         <h1>Welcome to AIMMS: The Ultimate AI-Powered Medical Multi-Solution Software</h1>
         <p>Your comprehensive AI doctor system, advanced medical report scanner, secure patient &amp; doctor dashboards, and robust database — all in one powerful platform.</p>
-        <button class="btn-primary" onclick="document.getElementById('scanner').scrollIntoView({behavior:'smooth'})" aria-label="Get Started - Scroll to Medical Report Scanner" type="button">Get Started</button>
+        <button class="btn-primary" onclick="scrollGetStarted()" aria-label="Get Started" type="button">Get Started</button>
       </section>
 
       <section id="ai-doctors" aria-labelledby="ai-doctors-title">
@@ -1984,6 +1984,16 @@ if ('webkitSpeechRecognition' in window) {
         navLinksPublic.classList.remove('open');
         hamburger.setAttribute('aria-expanded', 'false');
       });
+    }
+  }
+
+  function scrollGetStarted() {
+    if (window.innerWidth <= 640) {
+      // Mobile: scroll to Medical Report Scanner
+      document.getElementById('scanner').scrollIntoView({behavior:'smooth'});
+    } else {
+      // Desktop: scroll to AI Chatbox (or do nothing, or scroll to another section)
+      document.getElementById('ai-chatbox').scrollIntoView({behavior:'smooth'});
     }
   }
 
