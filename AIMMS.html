@@ -553,40 +553,27 @@
       }
     }
     @media (max-width: 640px) {
-      h1 {
-        font-size: 1.3rem;
-      }
-      h2 {
-        font-size: 1rem;
-      }
-      .btn-primary {
-        width: 100%;
-        font-size: 1rem;
-        padding: 0.8rem 0;
-        margin-top: 1.2rem;
-      }
-      nav {
-        flex-direction: row;
-        height: auto;
-        padding: 0.5rem 0.2rem;
+      .mobile-os #navClose {
+        position: fixed;
+        top: 1.2rem;
+        right: 1.2rem;
+        z-index: 3000;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 2.2rem;
+        width: 48px;
+        height: 48px;
         align-items: center;
-        position: relative;
+        justify-content: center;
+        cursor: pointer;
+        outline: none;
+        display: none;
       }
-      #hamburger {
+      .mobile-os .nav-links.open #navClose {
         display: flex;
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        background: none;
-        transition: box-shadow 0.2s;
       }
-      #hamburger:focus, #hamburger:active, #hamburger:hover {
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        background: none;
-      }
-      .nav-links {
+      .mobile-os .nav-links {
         position: fixed;
         top: 0;
         left: 0;
@@ -611,13 +598,13 @@
         pointer-events: none;
         transform: translateY(-16px) scaleY(0.98);
       }
-      .nav-links.open {
+      .mobile-os .nav-links.open {
         max-height: 100vh;
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0) scaleY(1);
       }
-      .nav-links a, .nav-links button {
+      .mobile-os .nav-links a, .mobile-os .nav-links button {
         font-size: 1.5rem;
         padding: 1.2rem 0;
         width: 80vw;
@@ -628,34 +615,14 @@
         box-shadow: none;
         transition: background 0.2s, color 0.2s;
       }
-      .nav-links a:focus, .nav-links button:focus {
+      .mobile-os .nav-links a:focus, .mobile-os .nav-links button:focus {
         outline: none;
         background: rgba(255,255,255,0.08);
         color: #fff;
       }
-      .logo {
+      .mobile-os .logo {
         margin-bottom: 0;
         font-size: 1.3rem;
-      }
-      #navClose {
-        position: fixed;
-        top: 1.2rem;
-        right: 1.2rem;
-        z-index: 3000;
-        background: none;
-        border: none;
-        color: #fff;
-        font-size: 2.2rem;
-        width: 48px;
-        height: 48px;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        outline: none;
-        display: none;
-      }
-      .nav-links.open #navClose {
-        display: flex;
       }
       #chat-input-container {
         flex-direction: column;
@@ -1156,116 +1123,6 @@
       border-radius: 2px;
       transition: all 0.3s;
       display: block;
-    }
-    @media (max-width: 640px) {
-      nav {
-        flex-direction: row;
-        height: auto;
-        padding: 0.5rem 0.2rem;
-        align-items: center;
-        position: relative;
-      }
-      #hamburger {
-        display: flex;
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        background: none;
-        transition: box-shadow 0.2s;
-      }
-      #hamburger:focus, #hamburger:active, #hamburger:hover {
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        background: none;
-      }
-      .nav-links {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(10,10,10,0.98);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-        border-radius: 0;
-        z-index: 2000;
-        transition: max-height 0.4s cubic-bezier(.77,0,.18,1), opacity 0.3s, transform 0.4s cubic-bezier(.77,0,.18,1);
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-        pointer-events: none;
-        transform: translateY(-16px) scaleY(0.98);
-      }
-      .nav-links.open {
-        max-height: 100vh;
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0) scaleY(1);
-      }
-      .nav-links a, .nav-links button {
-        font-size: 1.5rem;
-        padding: 1.2rem 0;
-        width: 80vw;
-        text-align: center;
-        border-radius: 0.5rem;
-        border: none;
-        outline: none;
-        box-shadow: none;
-        transition: background 0.2s, color 0.2s;
-      }
-      .nav-links a:focus, .nav-links button:focus {
-        outline: none;
-        background: rgba(255,255,255,0.08);
-        color: #fff;
-      }
-      .logo {
-        margin-bottom: 0;
-        font-size: 1.3rem;
-      }
-      #navClose {
-        position: fixed;
-        top: 1.2rem;
-        right: 1.2rem;
-        z-index: 3000;
-        background: none;
-        border: none;
-        color: #fff;
-        font-size: 2.2rem;
-        width: 48px;
-        height: 48px;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        outline: none;
-        display: none;
-      }
-      .nav-links.open #navClose {
-        display: flex;
-      }
-      #chat-input-container {
-        flex-direction: column;
-        gap: 0.7rem;
-        max-width: 100vw;
-        align-items: stretch;
-      }
-      #btn-send, #btn-voice, #btn-reset {
-        width: 100%;
-        font-size: 1.1rem;
-        height: 44px;
-        padding: 0;
-        margin-bottom: 0.2rem;
-      }
-      #btn-reset {
-        margin-bottom: 0;
-      }
     }
   </style>
 </head>
@@ -1984,6 +1841,14 @@ if ('webkitSpeechRecognition' in window) {
       });
     }
   }
+
+  // Add mobile-os class for Android/iOS only
+  document.addEventListener('DOMContentLoaded', function() {
+    var isMobileOS = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobileOS) {
+      document.body.classList.add('mobile-os');
+    }
+  });
 
   </script>
 
