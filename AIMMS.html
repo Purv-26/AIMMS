@@ -574,34 +574,36 @@
       }
       #hamburger {
         display: flex;
-        outline: none;
-        border: none;
-        box-shadow: none;
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
         background: none;
         transition: box-shadow 0.2s;
       }
-      #hamburger:focus, #hamburger:active {
-        outline: 2px solid #aaa;
-        border: none;
-        box-shadow: 0 0 0 2px #aaa;
+      #hamburger:focus, #hamburger:active, #hamburger:hover {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
         background: none;
       }
       .nav-links {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
         right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
         background: rgba(10,10,10,0.98);
         flex-direction: column;
         align-items: center;
-        gap: 1.2rem;
-        width: 100vw;
+        justify-content: center;
+        gap: 2rem;
         margin: 0;
-        padding: 1.2rem 0 1.2rem 0;
-        box-shadow: 0 8px 24px #000a;
-        border-bottom-left-radius: 1rem;
-        border-bottom-right-radius: 1rem;
-        z-index: 1000;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+        z-index: 2000;
         transition: max-height 0.4s cubic-bezier(.77,0,.18,1), opacity 0.3s, transform 0.4s cubic-bezier(.77,0,.18,1);
         max-height: 0;
         opacity: 0;
@@ -610,15 +612,15 @@
         transform: translateY(-16px) scaleY(0.98);
       }
       .nav-links.open {
-        max-height: 400px;
+        max-height: 100vh;
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0) scaleY(1);
       }
       .nav-links a, .nav-links button {
-        font-size: 1.2rem;
-        padding: 0.8rem 0;
-        width: 100%;
+        font-size: 1.5rem;
+        padding: 1.2rem 0;
+        width: 80vw;
         text-align: center;
         border-radius: 0.5rem;
         border: none;
@@ -627,61 +629,13 @@
         transition: background 0.2s, color 0.2s;
       }
       .nav-links a:focus, .nav-links button:focus {
-        outline: 2px solid #aaa;
+        outline: none;
         background: rgba(255,255,255,0.08);
         color: #fff;
       }
       .logo {
         margin-bottom: 0;
         font-size: 1.3rem;
-      }
-      #ai-chatbox {
-        padding: 0.5rem 0.2rem;
-      }
-      #chat-window {
-        height: 160px;
-        font-size: 0.95rem;
-        padding: 0.3rem;
-      }
-      #chat-input-container {
-        flex-direction: column;
-        gap: 0.3rem;
-      }
-      #chat-input {
-        font-size: 0.95rem;
-        min-height: 36px;
-        padding: 0.4rem 0.5rem;
-      }
-      #btn-send, #btn-voice, #btn-reset {
-        width: 100%;
-        font-size: 1rem;
-        height: 40px;
-        padding: 0;
-      }
-      #scanner {
-        padding: 0.5rem 0.2rem;
-      }
-      #scanner input[type="file"] {
-        font-size: 0.95rem;
-        padding: 0.8rem 0.3rem;
-        width: 100%;
-      }
-      .diagnosis-result {
-        font-size: 0.95rem;
-      }
-      .modal-content {
-        padding: 1rem 0.2rem;
-        max-width: 99vw;
-      }
-      form input[type="text"],
-      form input[type="password"],
-      form select {
-        font-size: 0.95rem;
-        padding: 0.4rem 0.4rem;
-      }
-      form button[type="submit"] {
-        font-size: 1rem;
-        padding: 0.8rem 0;
       }
     }
     @media (max-width: 480px) {
@@ -1177,34 +1131,36 @@
       }
       #hamburger {
         display: flex;
-        outline: none;
-        border: none;
-        box-shadow: none;
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
         background: none;
         transition: box-shadow 0.2s;
       }
-      #hamburger:focus, #hamburger:active {
-        outline: 2px solid #aaa;
-        border: none;
-        box-shadow: 0 0 0 2px #aaa;
+      #hamburger:focus, #hamburger:active, #hamburger:hover {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
         background: none;
       }
       .nav-links {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
         right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
         background: rgba(10,10,10,0.98);
         flex-direction: column;
         align-items: center;
-        gap: 1.2rem;
-        width: 100vw;
+        justify-content: center;
+        gap: 2rem;
         margin: 0;
-        padding: 1.2rem 0 1.2rem 0;
-        box-shadow: 0 8px 24px #000a;
-        border-bottom-left-radius: 1rem;
-        border-bottom-right-radius: 1rem;
-        z-index: 1000;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+        z-index: 2000;
         transition: max-height 0.4s cubic-bezier(.77,0,.18,1), opacity 0.3s, transform 0.4s cubic-bezier(.77,0,.18,1);
         max-height: 0;
         opacity: 0;
@@ -1213,15 +1169,15 @@
         transform: translateY(-16px) scaleY(0.98);
       }
       .nav-links.open {
-        max-height: 400px;
+        max-height: 100vh;
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0) scaleY(1);
       }
       .nav-links a, .nav-links button {
-        font-size: 1.2rem;
-        padding: 0.8rem 0;
-        width: 100%;
+        font-size: 1.5rem;
+        padding: 1.2rem 0;
+        width: 80vw;
         text-align: center;
         border-radius: 0.5rem;
         border: none;
@@ -1230,7 +1186,7 @@
         transition: background 0.2s, color 0.2s;
       }
       .nav-links a:focus, .nav-links button:focus {
-        outline: 2px solid #aaa;
+        outline: none;
         background: rgba(255,255,255,0.08);
         color: #fff;
       }
